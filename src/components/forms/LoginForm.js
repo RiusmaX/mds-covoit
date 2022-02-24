@@ -45,7 +45,7 @@ function LoginForm ({ onLogin }) {
           Une erreur s'est produite
         </FormControl.ErrorMessage>
       </FormControl>
-      <Button style={loginStyle.button} w='100%' size='md' onPress={() => onLogin(credentials)}>Se connnecter</Button>
+      <Button style={loginStyle.button} w='100%' onPress={() => onLogin(credentials)}>Se connnecter</Button>
     </Container>
   )
 }

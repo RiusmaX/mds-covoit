@@ -22,7 +22,30 @@ const getTheme = (isDarkMode) => {
       ...colors
     },
     components: {
-      Box: {
+      Text: {
+        baseStyle: (props) => {
+          return {
+            color: isDarkMode ? '#fff' : '#0F172A'
+          }
+        }
+      },
+      Container: {
+        baseStyle: (props) => {
+          return {
+            backgroundColor: isDarkMode ? '#0F172A' : '#fff',
+            color: isDarkMode ? '#fff' : '#0F172A'
+          }
+        }
+      },
+      Input: {
+        baseStyle: (props) => {
+          return {
+            backgroundColor: isDarkMode ? '#0F172A' : '#fff',
+            color: isDarkMode ? '#fff' : '#0F172A'
+          }
+        }
+      },
+      FormControlLabel: {
         baseStyle: (props) => {
           return {
             backgroundColor: isDarkMode ? '#0F172A' : '#fff',

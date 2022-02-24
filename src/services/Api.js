@@ -23,7 +23,6 @@ const loginWithCredentials = async (credentials) => {
  * @param { props } registrationCredentials Credentials for registration email or username + password requireds
  * @returns { Function } Registration with credentials
  */
-
 const registerWithRegistrationCredentials = async (registrationCredentials) => {
   try {
     const response = await api.post('/auth/local/register', registrationCredentials)
@@ -33,7 +32,27 @@ const registerWithRegistrationCredentials = async (registrationCredentials) => {
   }
 }
 
+const getAllTrips = async () => {
+  try {
+    const response = await api.get('/trips')
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const getOneTrip = async (tripId) => {
+  try {
+    const response = await api.get(`/trips/${tripId}`)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export {
   loginWithCredentials,
   registerWithRegistrationCredentials
+  getAllTrips,
+  getOneTrip
 }
