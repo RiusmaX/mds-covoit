@@ -9,8 +9,9 @@ function LoginScreen ({ navigation }) {
   const isDarkMode = useColorScheme() === 'dark'
 
   const { dispatch } = useAuth()
-  const handleLogin = () => {
-    loginUser({}, dispatch)
+
+  const handleLogin = async (credentials) => {
+    await loginUser(credentials, dispatch)
   }
 
   return (

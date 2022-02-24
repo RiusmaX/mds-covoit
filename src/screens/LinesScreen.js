@@ -30,7 +30,7 @@ function LinesScreen ({ navigation }) {
 
   return (
     <Container style={{ maxWidth: '100%', paddingTop: mapPaddingTop }} h='100%' w='100%'>
-      <MapView
+      {/* <MapView
         provider='google'
         style={{
           flex: 1,
@@ -44,7 +44,7 @@ function LinesScreen ({ navigation }) {
         showsCompass
         showsScale
         onMapReady={onMapReady}
-      />
+      /> */}
       <Fab
         onPress={() => navigation.navigate('Modal')}
         position='absolute'
