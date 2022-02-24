@@ -18,6 +18,16 @@ const loginWithCredentials = async (credentials) => {
   }
 }
 
+const getAllTrips = async () => {
+  try {
+    const response = await api.get('/trips')
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export {
-  loginWithCredentials
+  loginWithCredentials,
+  getAllTrips
 }
