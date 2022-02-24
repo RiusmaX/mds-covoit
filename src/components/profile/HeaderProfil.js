@@ -1,9 +1,20 @@
-import { Text } from 'native-base'
 import React from 'react'
+import { Container, Image } from 'native-base'
+import { styles } from '../../theme/Profil'
 
 function HeaderProfil () {
   return (
-    <Text>HEADER PROFIL</Text>
+    <Container
+      style={styles.centerHeader}
+      h='15%'
+      w='100%'
+    >
+      <Image
+        source={{
+          uri: 'https://wallpaperaccess.com/full/317501.jpg'
+        }} alt='Alternate Text' size='xl' borderRadius={100}
+      />
+    </Container>
   )
 }
 

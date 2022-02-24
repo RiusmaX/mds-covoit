@@ -1,50 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Fab, Text } from 'native-base'
+import React from 'react'
+import { Center, Container, Fab } from 'native-base'
 import Icon from 'react-native-vector-icons/Ionicons'
-import MapView from 'react-native-maps'
-import { PermissionsAndroid } from 'react-native'
+
+import { TabsComponent } from '../components/tabs/Tabs'
+import { Maps } from '../components/maps/Maps'
 
 function LinesScreen ({ navigation }) {
-  const [mapMargin, setMapMargin] = useState(1)
-  const [mapPaddingTop, setMapPaddingTop] = useState()
-  useEffect(() => {
-    setTimeout(() => {
-      setMapMargin(1)
-      setMapMargin(1)
-    }, 100)
-  }, [])
-  const onMapReady = () => {
-    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
-      .then((granted) => {
-        setMapMargin(0)
-        setMapMargin(0)
-      })
-      .finally(() => {
-        setMapMargin(0)
-        setMapPaddingTop(0)
-      })
-
-    setMapMargin(0)
-    setMapPaddingTop(0)
-  }
-
   return (
-    <Container style={{ maxWidth: '100%', paddingTop: mapPaddingTop }} h='100%' w='100%'>
-      {/* <MapView
-        provider='google'
-        style={{
-          flex: 1,
-          width: '100%',
-          height: '100%',
-          marginBottom: mapMargin
-        }}
-        zoomControlEnabled
-        showsUserLocation
-        showsMyLocationButton
-        showsCompass
-        showsScale
-        onMapReady={onMapReady}
-      /> */}
+    <Container
+      style={{ maxWidth: '100%' }}
+      h='100%'
+      w='100%'
+    >
+      <TabsComponent views={[
+        {
+          key: 'first',
+          title: 'Liste',
+          component: FirstRoute
+        },
+        {
+          key: 'second',
+          title: 'Carte',
+          component: Maps
+        }
+      ]}
+      />
+
       <Fab
         onPress={() => navigation.navigate('Modal')}
         position='absolute'
@@ -56,5 +37,11 @@ function LinesScreen ({ navigation }) {
     </Container>
   )
 }
+
+const FirstRoute = () => (
+  <Center flex={1} my='4'>
+    This is Tab 1
+  </Center>
+)
 
 export default LinesScreen

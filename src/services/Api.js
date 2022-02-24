@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 
 const api = axios.create({
@@ -18,6 +19,44 @@ const loginWithCredentials = async (credentials) => {
   }
 }
 
+const getAllTrips = async () => {
+  try {
+    const response = await api.get('/trips')
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const getOneTrip = async (tripId) => {
+  try {
+    const response = await api.get(`/trips/${tripId}`)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+// Récupération des informations de l'utilisateur actuellement connecté
+const getUserInfos = async () => {
+  // On récupère le token de l'utilisateur connecté pour le passer dans le header
+  const getUserToken = await AsyncStorage.getItem('AUTH')
+  const userToken = getUserToken ? JSON.parse(getUserToken).token : null
+  try {
+    const response = await api.get('/users/me', {
+      headers: {
+        Authorization: `Bearer ${userToken}`
+      }
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export {
-  loginWithCredentials
+  loginWithCredentials,
+  getAllTrips,
+  getOneTrip,
+  getUserInfos
 }
