@@ -17,7 +17,7 @@ function Trip ({ trip }) {
       </Box>
       <Box flex={2}>
         <Text marginBottom={2}>{trip.title}</Text>
-        <Badge marginBottom={2} bgColor='primary.300'>{trip.nbSeats} places</Badge>
+        <Badge marginBottom={2} bgColor='primary.300' flexDirection='row' style={{ borderRadius: 3, width: '50%', alignItems: 'center', justifyContent: 'center' }}>{trip.nbSeats} places</Badge>
         <Box flexDirection='row' alignItems='center' marginBottom={2}>
 
           {/* L'api strapi ne permet pas encore de récupérer l'avatar */}
