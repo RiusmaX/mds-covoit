@@ -85,6 +85,17 @@ const loginUser = async (credentials, dispatch) => {
   }
 }
 
+const logoutUser = async (dispatch) => {
+  try {
+    dispatch({
+      type: actionTypes.LOGOUT
+    })
+    await AsyncStorage.clear()
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 const persistAuth = async (data) => {
   try {
     await AsyncStorage.setItem('AUTH', JSON.stringify(data))
@@ -106,5 +117,6 @@ export {
   useAuth,
   AuthProvider,
   actionTypes,
-  loginUser
+  loginUser,
+  logoutUser
 }
