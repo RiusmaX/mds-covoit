@@ -12,7 +12,7 @@ const api = axios.create({
 /**
  * Appel d'API pour la connexion
  * @param { Object } credentials
- * @returns { Promise }
+ * @returns { Object }
  */
 const loginWithCredentials = async (credentials) => {
   try {
@@ -25,7 +25,7 @@ const loginWithCredentials = async (credentials) => {
 
 /**
  * Récupère tous les trajets
- * @returns { Promise }
+ * @returns { Object }
  */
 const getAllTrips = async () => {
   try {
@@ -39,7 +39,7 @@ const getAllTrips = async () => {
 /**
  * Récupère un trajet
  * @param { Number } tripId
- * @returns { Promise }
+ * @returns { Object }
  */
 const getOneTrip = async (tripId) => {
   try {
