@@ -26,7 +26,6 @@ export function TabsComponent ({ views }) {
             <Pressable
               key={i}
               onPress={() => {
-                console.log(route)
                 setIndex(i)
               }}
               alignItems='center' p='3' flex={1}

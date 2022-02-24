@@ -4,8 +4,11 @@ import Icon from 'react-native-vector-icons/Ionicons'
 
 import { TabsComponent } from '../components/tabs/Tabs'
 import { Maps } from '../components/maps/Maps'
+import { Lines } from '../components/lines/Lines'
 
 function LinesScreen ({ navigation }) {
+
+
   return (
     <Container
       style={{ maxWidth: '100%' }}
@@ -16,7 +19,7 @@ function LinesScreen ({ navigation }) {
         {
           key: 'first',
           title: 'Liste',
-          component: FirstRoute
+          component: Lines
         },
         {
           key: 'second',
@@ -37,11 +40,5 @@ function LinesScreen ({ navigation }) {
     </Container>
   )
 }
-
-const FirstRoute = () => (
-  <Center flex={1} my='4'>
-    This is Tab 1
-  </Center>
-)
 
 export default LinesScreen

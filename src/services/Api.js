@@ -35,7 +35,7 @@ const registerWithRegistrationCredentials = async (registrationCredentials) => {
 
 const getAllTrips = async () => {
   try {
-    const response = await api.get('/trips')
+    const response = await api.get('/trips?populate=*')
     return response.data
   } catch (error) {
     console.error(error)
