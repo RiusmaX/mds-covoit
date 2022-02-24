@@ -1,12 +1,13 @@
 
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { loginWithCredentials } from '../services/Api'
+import { loginWithCredentials, registerWithRegistrationCredentials } from '../services/Api'
 
 const AuthContext = createContext()
 
 const actionTypes = {
   LOGIN: 'LOGIN',
+  REGISTER: 'REGISTER',
   LOGOUT: 'LOGOUT',
   ERROR: 'ERROR'
 }
@@ -21,6 +22,10 @@ const initialState = {
 const AuthReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.LOGIN:
+      return {
+        ...initialState, token: action.data.token, user: action.data.user 
+      }
+    case actionTypes.REGISTER:
       return {
         ...initialState, token: action.data.token, user: action.data.user
       }
@@ -85,6 +90,38 @@ const loginUser = async (credentials, dispatch) => {
   }
 }
 
+/**
+ * registerUser
+ * @param { props } registrationCredentials Credentials for registration email or username + password requireds
+ * @returns { Function } register user with registerWithRegistrationCredentials function
+ */
+
+const registerUser = async (registrationCredentials, dispatch) => {
+  try {
+    const data = await registerWithRegistrationCredentials(registrationCredentials)
+    dispatch({
+      type: actionTypes.REGISTER,
+      data: { user: data.user, token: data.jwt }
+    })
+  } catch (error) {
+    dispatch({
+      type: actionTypes.ERROR,
+      data: { error: error.message }
+    })
+  }
+}
+
+const logoutUser = async (dispatch) => {
+  try {
+    dispatch({
+      type: actionTypes.LOGOUT
+    })
+    await AsyncStorage.clear()
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 const persistAuth = async (data) => {
   try {
     await AsyncStorage.setItem('AUTH', JSON.stringify(data))
@@ -106,5 +143,7 @@ export {
   useAuth,
   AuthProvider,
   actionTypes,
-  loginUser
+  loginUser,
+  logoutUser,
+  registerUser
 }
