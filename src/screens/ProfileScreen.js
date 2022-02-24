@@ -1,19 +1,45 @@
-import React from 'react'
-import { Container, Text, Button } from 'native-base'
-import { logoutUser, useAuth } from '../contexts/AuthContext'
+import React, { useState } from 'react'
+import { useWindowDimensions } from 'react-native'
+import { TabView, SceneMap } from 'react-native-tab-view'
+import HeaderProfil from '../components/profile/HeaderProfil'
+import UserProfil from '../components/profile/UserProfil'
+import UserTrips from '../components/profile/UserTrips'
 
+// Navigation dans le profil
+const FirstRoute = () => (
+  <UserProfil />
+)
+
+const SecondRoute = () => (
+  <UserTrips />
+)
+
+// switch entre les routes de tabview
+const renderScene = SceneMap({
+  profil: FirstRoute,
+  trips: SecondRoute
+})
+
+// fonction pour l'affichage du bon screen avec une route
 function ProfileScreen () {
-  const { dispatch } = useAuth()
+  const layout = useWindowDimensions()
 
-  const handleLogout = async () => {
-    await logoutUser(dispatch)
-  }
+  const [index, setIndex] = useState(0)
+  const [routes] = useState([
+    { key: 'profil', title: 'Profil' },
+    { key: 'trips', title: 'Mes trajets' }
+  ])
 
   return (
-    <Container>
-      <Text>PROFILE SCREEN</Text>
-      <Button onPress={handleLogout} style={{ backgroundColor: 'red' }} size='md'>Se déconnecter</Button>
-    </Container>
+    <>
+      <HeaderProfil />
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+      />
+    </>
   )
 }
 
