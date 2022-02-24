@@ -2,19 +2,34 @@ import { Avatar, Badge, Box, Text, VStack } from 'native-base'
 import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-function Trip() {
+/**
+ *
+ * @param {props} trip
+ * @returns One trip
+ */
+function Trip ({ trip }) {
   return (
-    <VStack style={{ width: '100%' }} shadow={3} p={3} flexDirection='row' alignItems='center' justifyContent='space-between'>
+    <VStack style={{ width: '100%' }} p={3} flexDirection='row' alignItems='center' justifyContent='space-between' borderBottomWidth={0.5} borderColor='primary.200'>
       <Box flex={1} flexDirection='column' justifyContent='space-between'>
-        <Text>O8 :05</Text>
-        <Text>O8 :05</Text>
+        <Text>{new Date(trip.departureDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
+        <Box borderColor='primary.500' borderLeftWidth={3} style={{ height: 50 }} marginLeft={4} />
+        <Text>{new Date(trip.arrivalDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
       </Box>
       <Box flex={2}>
-        <Text marginBottom={2}>ADRESSE</Text>
-        <Badge marginBottom={2}>3 places</Badge>
+        <Text marginBottom={2}>{trip.title}</Text>
+        <Badge marginBottom={2} bgColor='primary.300'>{trip.nbSeats} places</Badge>
         <Box flexDirection='row' alignItems='center' marginBottom={2}>
-          <Avatar marginRight={2} />
-          <Text>PRENOM</Text>
+
+          {/* L'api strapi ne permet pas encore de récupérer l'avatar */}
+          <Avatar marginRight={2} size={10} source={{ uri: trip?.pilot?.data?.attributes?.avatar || '' }}>{trip.pilot.data.attributes.username.substring(0, 2).toUpperCase()}</Avatar>
+          <Text>{trip.pilot.data.attributes.username}</Text>
+          <Avatar.Group size='xs' max={3}>
+            {trip.passengers.data.map((passenger) => {
+              return (
+                <Avatar size='xs' key={passenger.id} source={{ uri: passenger?.attributes?.avatar || '' }}>{passenger?.attributes.username.substring(0, 2).toUpperCase()}</Avatar>
+              )
+            })}
+          </Avatar.Group>
         </Box>
       </Box>
       <Box flex={1} alignItems='flex-end'>
