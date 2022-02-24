@@ -21,12 +21,12 @@ function Trip ({ trip }) {
         <Box flexDirection='row' alignItems='center' marginBottom={2}>
 
           {/* L'api strapi ne permet pas encore de récupérer l'avatar */}
-          <Avatar marginRight={2} size={10} source={{ uri: trip?.pilot?.data?.attributes?.avatar || '' }}>{trip.pilot.data.attributes.username.substring(0, 2).toUpperCase()}</Avatar>
+          <Avatar bg='orange.300' marginRight={2} size={10} source={{ uri: trip?.pilot?.data?.attributes?.avatar || '' }}>{trip.pilot.data.attributes.username.substring(0, 2).toUpperCase()}</Avatar>
           <Text>{trip.pilot.data.attributes.username}</Text>
           <Avatar.Group size='xs' max={3}>
             {trip.passengers.data.map((passenger) => {
               return (
-                <Avatar size='xs' key={passenger.id} source={{ uri: passenger?.attributes?.avatar || '' }}>{passenger?.attributes.username.substring(0, 2).toUpperCase()}</Avatar>
+                <Avatar bg='orange.300' size='xs' key={passenger.id} source={{ uri: passenger?.attributes?.avatar || '' }}>{passenger?.attributes.username.substring(0, 2).toUpperCase()}</Avatar>
               )
             })}
           </Avatar.Group>
