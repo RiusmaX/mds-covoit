@@ -27,7 +27,17 @@ const getAllTrips = async () => {
   }
 }
 
+const getOneTrip = async (tripId) => {
+  try {
+    const response = await api.get(`/trips/${tripId}`)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export {
   loginWithCredentials,
-  getAllTrips
+  getAllTrips,
+  getOneTrip
 }
