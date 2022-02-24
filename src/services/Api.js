@@ -10,6 +10,11 @@ const api = axios.create({
   timeout: 10000
 })
 
+/**
+ * Appel d'API pour la connexion
+ * @param { Object } credentials
+ * @returns { Object }
+ */
 const loginWithCredentials = async (credentials) => {
   try {
     const response = await api.post('/auth/local', credentials)
@@ -33,6 +38,10 @@ const registerWithRegistrationCredentials = async (registrationCredentials) => {
   }
 }
 
+/**
+ * Récupère tous les trajets
+ * @returns { Object }
+ */
 const getAllTrips = async () => {
   try {
     const response = await api.get('/trips?populate=*')
@@ -42,6 +51,11 @@ const getAllTrips = async () => {
   }
 }
 
+/**
+ * Récupère un trajet
+ * @param { Number } tripId
+ * @returns { Object }
+ */
 const getOneTrip = async (tripId) => {
   try {
     const response = await api.get(`/trips/${tripId}`)
@@ -70,7 +84,7 @@ const getUserInfos = async () => {
 
 export {
   loginWithCredentials,
-  registerWithRegistrationCredentials
+  registerWithRegistrationCredentials,
   getAllTrips,
   getOneTrip,
   getUserInfos
