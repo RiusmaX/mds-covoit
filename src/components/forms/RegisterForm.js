@@ -11,7 +11,7 @@ function RegisterForm ({ onRegister }) {
     password: '',
     // phone: '',
     firstName: '',
-    lastName: '',
+    lastName: ''
     // avatar: '',
     // school: '',
     // class: '',
@@ -19,9 +19,9 @@ function RegisterForm ({ onRegister }) {
     // biography: ''
   })
 
-
   return (
-    <Container w='80%'>
+    // top -40px pour ne pas avoir à scroll pour voirl'entiereté de la page
+    <Container w='80%' top='-40px'>
       <FormControl>
         <FormControl.Label>Nom d'utilisateur</FormControl.Label>
         <Input
@@ -76,7 +76,7 @@ function RegisterForm ({ onRegister }) {
               w='1/6'
               h='full'
               onPress={() => setShowPassword(!showPassword)}
-           >
+            >
               {showPassword ? <Icon name='eye' size={25} /> : <Icon name='eye-off' size={25} />}
             </Button>
           }
@@ -85,7 +85,7 @@ function RegisterForm ({ onRegister }) {
           Une erreur s'est produite
         </FormControl.ErrorMessage>
       </FormControl>
-      <Button style={loginStyle.button} size='md' onPress={() => onRegister(registrationCredentials)}>S'inscrire</Button>
+      <Button style={loginStyle.button} w='100%' h='10' size='md' onPress={() => onRegister(registrationCredentials)}>S'inscrire</Button>
     </Container>
   )
 }
