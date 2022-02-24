@@ -23,11 +23,11 @@ const AuthReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.LOGIN:
       return {
-        ...initialState, token: action.data.token, user: action.data.user, profilIsNotComplete: action.data.profilIsNotComplete
+        ...initialState, token: action.data.token, user: action.data.user 
       }
     case actionTypes.REGISTER:
       return {
-        ...initialState, token: action.data.token, user: action.data.user, profilIsComplete: action.data.profilIsComplete
+        ...initialState, token: action.data.token, user: action.data.user
       }
     case actionTypes.ERROR:
       return {
@@ -80,7 +80,7 @@ const loginUser = async (credentials, dispatch) => {
     const data = await loginWithCredentials(credentials)
     dispatch({
       type: actionTypes.LOGIN,
-      data: { user: data.user, token: data.jwt, profilIsNotComplete: !data.user.phone || !data.user.school || !data.user.class || !data.user.status || !data.user.bio }
+      data: { user: data.user, token: data.jwt }
     })
   } catch (error) {
     dispatch({
@@ -90,12 +90,18 @@ const loginUser = async (credentials, dispatch) => {
   }
 }
 
+/**
+ * registerUser
+ * @param { props } registrationCredentials Credentials for registration email or username + password requireds
+ * @returns { Function } register user with registerWithRegistrationCredentials function
+ */
+
 const registerUser = async (registrationCredentials, dispatch) => {
   try {
     const data = await registerWithRegistrationCredentials(registrationCredentials)
     dispatch({
       type: actionTypes.REGISTER,
-      data: { user: data.user, token: data.jwt, profilIsComplete: data.user.phone && data.user.school && data.user.class && data.user.status && data.user.biography }
+      data: { user: data.user, token: data.jwt }
     })
   } catch (error) {
     dispatch({

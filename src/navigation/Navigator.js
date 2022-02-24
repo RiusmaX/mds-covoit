@@ -51,8 +51,7 @@ function MainTabNavigator () {
 
 function Navigator () {
   const { state } = useAuth()
-  console.log('state: ', state.profilIsNotComplete)
-    console.log('user: ', state.user)
+  
   if (state.user && state.token) {
     return (
       <MainTabNavigator profilIsComplete={state.phone && state.school && state.class && state.status && state.biography} />

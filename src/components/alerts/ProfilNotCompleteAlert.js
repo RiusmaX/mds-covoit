@@ -2,7 +2,13 @@ import React from 'react'
 import { Alert as NativeBaseAlert, Box, Button, Center, CloseIcon, HStack, IconButton, Text, VStack } from "native-base"
 import { useAuth } from '../../contexts/AuthContext'
 
-function ProfilNotCompleteAlert({ navigation }) {
+/**
+ * ProfilNotCompleteAlert
+ * @param { props } onPressGoProfile Navigation function to profile
+ * @returns { Component } Alert profil not complete
+ */
+
+function ProfilNotCompleteAlert({ onPressGoProfile }) {
   
     const { state } = useAuth()
 
@@ -29,7 +35,7 @@ function ProfilNotCompleteAlert({ navigation }) {
               rounded='none'
             w='100%'
             marginTop={2}
-            onPress={() => navigation.navigate('Profile')}
+            onPress={onPressGoProfile}
             >
               Mon profil
             </Button>
