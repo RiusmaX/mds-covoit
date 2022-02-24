@@ -18,6 +18,16 @@ const loginWithCredentials = async (credentials) => {
   }
 }
 
+const registerWithRegistrationCredentials = async (registrationCredentials) => {
+  try {
+    const response = await api.post('/auth/local/register', registrationCredentials)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export {
-  loginWithCredentials
+  loginWithCredentials,
+  registerWithRegistrationCredentials
 }

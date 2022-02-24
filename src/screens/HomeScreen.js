@@ -1,9 +1,15 @@
 import React from 'react'
-import { Text } from 'native-base'
+import { Container, Text } from 'native-base'
+import ProfilNotCompleteAlert from '../components/alerts/ProfilNotCompleteAlert'
 
-function HomeScreen () {
+function HomeScreen ({ navigation }) {
   return (
-    <Text> HOME SCREEN </Text>
+    <>
+      <ProfilNotCompleteAlert navigation />
+      <Container w='100%'>
+        <Text> HOME SCREEN </Text>
+      </Container>
+    </>
   )
 }
 

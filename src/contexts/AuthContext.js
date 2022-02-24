@@ -1,12 +1,13 @@
 
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { loginWithCredentials } from '../services/Api'
+import { loginWithCredentials, registerWithRegistrationCredentials } from '../services/Api'
 
 const AuthContext = createContext()
 
 const actionTypes = {
   LOGIN: 'LOGIN',
+  REGISTER: 'REGISTER',
   LOGOUT: 'LOGOUT',
   ERROR: 'ERROR'
 }
@@ -22,7 +23,11 @@ const AuthReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.LOGIN:
       return {
-        ...initialState, token: action.data.token, user: action.data.user
+        ...initialState, token: action.data.token, user: action.data.user, profilIsNotComplete: action.data.profilIsNotComplete
+      }
+    case actionTypes.REGISTER:
+      return {
+        ...initialState, token: action.data.token, user: action.data.user, profilIsComplete: action.data.profilIsComplete
       }
     case actionTypes.ERROR:
       return {
@@ -75,7 +80,22 @@ const loginUser = async (credentials, dispatch) => {
     const data = await loginWithCredentials(credentials)
     dispatch({
       type: actionTypes.LOGIN,
-      data: { user: data.user, token: data.jwt }
+      data: { user: data.user, token: data.jwt, profilIsNotComplete: !data.user.phone || !data.user.school || !data.user.class || !data.user.status || !data.user.bio }
+    })
+  } catch (error) {
+    dispatch({
+      type: actionTypes.ERROR,
+      data: { error: error.message }
+    })
+  }
+}
+
+const registerUser = async (registrationCredentials, dispatch) => {
+  try {
+    const data = await registerWithRegistrationCredentials(registrationCredentials)
+    dispatch({
+      type: actionTypes.REGISTER,
+      data: { user: data.user, token: data.jwt, profilIsComplete: data.user.phone && data.user.school && data.user.class && data.user.status && data.user.biography }
     })
   } catch (error) {
     dispatch({
@@ -118,5 +138,6 @@ export {
   AuthProvider,
   actionTypes,
   loginUser,
-  logoutUser
+  logoutUser,
+  registerUser
 }
