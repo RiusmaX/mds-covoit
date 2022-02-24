@@ -1,19 +1,7 @@
 import * as React from 'react'
-import { View, StyleSheet, Dimensions, StatusBar, TouchableOpacity, Animated, Pressable } from 'react-native'
+import { Dimensions, StatusBar, Pressable } from 'react-native'
 import { TabView, SceneMap } from 'react-native-tab-view'
-import { NativeBaseProvider, Box, Text, Center, useColorModeValue } from 'native-base'
-
-const FirstRoute = () => (
-  <Center flex={1} my='4'>
-    This is Tab 1
-  </Center>
-)
-
-const SecondRoute = () => (
-  <Center flex={1} my='4'>
-    This is Tab 2
-  </Center>
-)
+import { Box, Text, useColorModeValue } from 'native-base'
 
 const initialLayout = {
   width: Dimensions.get('window').width
