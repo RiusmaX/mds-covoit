@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		9AF22E3927C90C9D0086B0D6 /* anything.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF22E3827C90C9D0086B0D6 /* anything.swift */; };
 		AD9B30ECE1146161DA2A6D18 /* libPods-covoit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961B4FD853FA3ABCD34F6721 /* libPods-covoit.a */; };
 		F7B39E40A35DC0BDFAAF301A /* libPods-covoit-covoitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EE9F84CA7092D14484CB6E3 /* libPods-covoit-covoitTests.a */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,8 @@
 		7639C0DC2556C949C8C94922 /* Pods-covoit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-covoit.release.xcconfig"; path = "Target Support Files/Pods-covoit/Pods-covoit.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = covoit/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		961B4FD853FA3ABCD34F6721 /* libPods-covoit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-covoit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AF22E3727C90C9D0086B0D6 /* covoit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "covoit-Bridging-Header.h"; sourceTree = "<group>"; };
+		9AF22E3827C90C9D0086B0D6 /* anything.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = anything.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -127,12 +130,14 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				9AF22E3827C90C9D0086B0D6 /* anything.swift */,
 				13B07FAE1A68108700A75B9A /* covoit */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* covoitTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				3AEB89B480D94776EE6EDAB2 /* Pods */,
+				9AF22E3727C90C9D0086B0D6 /* covoit-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -207,7 +212,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1320;
 					};
 				};
 			};
@@ -411,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				9AF22E3927C90C9D0086B0D6 /* anything.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,6 +436,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 44230D51896EAE85A1958208 /* Pods-covoit-covoitTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = FPJJD3YW62;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -458,6 +465,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1B6C093A8958E65D3D4F8256 /* Pods-covoit-covoitTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = FPJJD3YW62;
@@ -500,6 +508,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = covoit;
+				SWIFT_OBJC_BRIDGING_HEADER = "covoit-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -526,6 +535,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = covoit;
+				SWIFT_OBJC_BRIDGING_HEADER = "covoit-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
