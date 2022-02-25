@@ -1,6 +1,6 @@
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 import { NativeBaseProvider } from 'native-base'
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   SafeAreaView,
   StatusBar,
@@ -10,9 +10,35 @@ import {
 import { AuthProvider } from './contexts/AuthContext'
 import Navigator from './navigation/Navigator'
 import { getTheme } from './theme/Theme'
+import { GeoProvider, setLocation, useGeo } from './contexts/GeoContext'
+import Geolocation, { clearWatch } from 'react-native-geolocation-service'
+
+const WithContext = () => {
+  return (
+    <GeoProvider>
+      <App />
+    </GeoProvider>
+  )
+}
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
+
+  const { dispatch } = useGeo()
+
+  useEffect(() => {
+    const watchId = Geolocation.watchPosition((position) => {
+      console.log('NEW POSITION')
+      setLocation(dispatch, position)
+    },
+    (error) => {
+      console.log(error)
+    },
+    { enableHighAccuracy: true, interval: 1000, showLocationDialog: true })
+    return () => {
+      clearWatch(watchId)
+    }
+  }, [])
 
   const theme = getTheme(isDarkMode)
   const navigationTheme = {
@@ -37,4 +63,4 @@ const App = () => {
   )
 }
 
-export default App
+export default WithContext

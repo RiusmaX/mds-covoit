@@ -3,17 +3,21 @@ import { Avatar, Image } from 'native-base'
 import React, { useEffect, useState } from 'react'
 import { PermissionsAndroid } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
+import { useGeo, getLocation } from '../../contexts/GeoContext'
 import { getAllTrips } from '../../services/Api'
 
 export const Maps = () => {
   const [trips, setTrips] = useState([])
   const [mapMargin, setMapMargin] = useState(1)
   const [mapPaddingTop, setMapPaddingTop] = useState()
+  const { dispatch, state: { data } } = useGeo()
+
   useEffect(() => {
     setTimeout(() => {
       setMapMargin(1)
       setMapMargin(1)
     }, 100)
+    getLocation(dispatch)
   }, [])
   const onMapReady = () => {
     PermissionsAndroid.request(
@@ -58,6 +62,13 @@ export const Maps = () => {
       showsScale
       onMapReady={onMapReady}
     >
+      <Marker
+        pinColor='red'
+        coordinate={{
+          latitude: data.coords.latitude,
+          longitude: data.coords.longitude
+        }}
+      />
       {/* On ajoute sur la carte les différents points de départs */}
       {trips.data && trips?.data?.map((trip) => {
         return (
