@@ -2,7 +2,7 @@ import { Avatar, Image } from 'native-base'
 // import { randomColor } from 'native-base/lib/typescript/theme/tools'
 import React, { useEffect, useState } from 'react'
 import { PermissionsAndroid } from 'react-native'
-import MapView, { Marker } from 'react-native-maps'
+
 import { useGeo, getLocation } from '../../contexts/GeoContext'
 import { getAllTrips } from '../../services/Api'
 
