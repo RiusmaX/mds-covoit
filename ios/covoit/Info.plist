@@ -26,6 +26,8 @@
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MBXAccessToken</key>
+	<string>pk.eyJ1IjoiaHVnb2E0NCIsImEiOiJja3p6a205YXUwYjg0M2RxcGtiYzl6em9zIn0.dNtsD7N3H1tphy1lEsTTzA</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -64,7 +66,7 @@
 		<string>location</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>BootSplash</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
