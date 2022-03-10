@@ -13,6 +13,8 @@ import { getTheme } from './theme/Theme'
 import { GeoProvider, setLocation, useGeo } from './contexts/GeoContext'
 import Geolocation, { clearWatch } from 'react-native-geolocation-service'
 
+import RNBootSplash from 'react-native-bootsplash'
+
 const WithContext = () => {
   return (
     <GeoProvider>
@@ -53,7 +55,10 @@ const App = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <AuthProvider>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <NavigationContainer theme={navigationTheme}>
+        <NavigationContainer
+          theme={navigationTheme}
+          onReady={() => RNBootSplash.hide({ fade: true })}
+        >
           <NativeBaseProvider theme={theme}>
             <Navigator />
           </NativeBaseProvider>

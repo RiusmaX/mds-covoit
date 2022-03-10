@@ -51,7 +51,7 @@ function MainTabNavigator () {
 
 function Navigator () {
   const { state } = useAuth()
-  
+
   if (state.user && state.token) {
     return (
       <MainTabNavigator profilIsComplete={state.phone && state.school && state.class && state.status && state.biography} />
@@ -62,7 +62,5 @@ function Navigator () {
     )
   }
 }
-
-
 
 export default Navigator
