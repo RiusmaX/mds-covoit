@@ -12,6 +12,8 @@ import Navigator from './navigation/Navigator'
 import { getTheme } from './theme/Theme'
 import { GeoProvider, setLocation, useGeo } from './contexts/GeoContext'
 import Geolocation, { clearWatch } from 'react-native-geolocation-service'
+import RNBootSplash from "react-native-bootsplash";
+ 
 
 import RNBootSplash from 'react-native-bootsplash'
 
@@ -22,6 +24,12 @@ const WithContext = () => {
     </GeoProvider>
   )
 }
+
+
+useEffect(()=> {
+  RNBootSplash.hide({ fade: true }); // fade
+},[])
+
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
