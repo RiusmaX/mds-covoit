@@ -25,12 +25,6 @@ const WithContext = () => {
   )
 }
 
-
-useEffect(()=> {
-  RNBootSplash.hide({ fade: true }); // fade
-},[])
-
-
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
 
