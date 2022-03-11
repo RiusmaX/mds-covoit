@@ -231,7 +231,6 @@ export const Maps = () => {
     }
 
     const res = await directionsClient.getDirections(reqOptions).send()
-    console.log(res)
 
     const newRoute = makeLineString(res.body.routes[0].geometry.coordinates)
     setRoute(newRoute)
@@ -242,7 +241,6 @@ export const Maps = () => {
    * @returns Liste de composant
    */
   const renderAnnotations = () => {
-    console.log(startDestinationPoints)
     return (
       <>
         {startDestinationPoints.map((point, index) => (
