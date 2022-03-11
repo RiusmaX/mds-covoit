@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { tabBarStyle } from '../theme/Styles'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { colors } from '../theme/Theme'
 
 function TabBar ({ state, descriptors, navigation }) {
   return (
@@ -12,8 +13,8 @@ function TabBar ({ state, descriptors, navigation }) {
           options.tabBarLabel !== undefined
             ? options.tabBarLabel
             : options.title !== undefined
-              ? options.title
-              : route.name
+            ? options.title
+            : route.name
 
         if (!options.tabBarIcon) {
           return null
@@ -52,8 +53,18 @@ function TabBar ({ state, descriptors, navigation }) {
             onLongPress={onLongPress}
             style={tabBarStyle.button}
           >
-            <Icon name={`${options.tabBarIcon}${!isFocused ? '-outline' : ''}`} size={isFocused ? 30 : 25} color='#fff' />
-            <Text style={isFocused ? tabBarStyle.buttonTextSelected : tabBarStyle.buttonText}>
+            <Icon
+              name={`${options.tabBarIcon}${!isFocused ? '-outline' : ''}`}
+              size={isFocused ? 30 : 25}
+              color={isFocused ? colors.primary[500] : colors.primary[50]}
+            />
+            <Text
+              style={
+                isFocused
+                  ? tabBarStyle.buttonTextSelected
+                  : tabBarStyle.buttonText
+              }
+            >
               {label}
             </Text>
           </TouchableOpacity>
