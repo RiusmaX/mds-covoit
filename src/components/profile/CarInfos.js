@@ -1,34 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Button, Container, Input, Text } from 'native-base'
 import { getCarInfos } from '../../services/Api_Immat'
 import JSSoup from 'jssoup'
 
 function HeaderProfil () {
   const [loading, setLoading] = useState(true)
-  const [carInfos, setCarInfos] = useState([])
   const [carName, setCarName] = useState('')
   const [immat, setImmat] = useState('')
 
-  // Rajouter le useEffect pour mettre à jour le véhicule ?
+  // Récupération des informations sur le véhicule par l'appel api avec chargement
   const getCar = async () => {
     setLoading(true)
-    const carInfos = await getCarInfos(immat)
+    const result = await getCarInfos(immat)
     setLoading(false)
-    setCarInfos(carInfos)
+    return result
   }
 
+  // Fonction appelé au moment du clic sur le bouton
   const onSubmit = async () => {
-    getCar()
+    const result = await getCar()
 
-    // On récupère le nom de la voiture qui est de base format html en text
-    const soup = await new JSSoup(carInfos)
+    // On récupère le nom de la voiture qui est de base format html, et on le transforme en format text
+    const soup = await new JSSoup(result)
     const elements = await soup.find('h2')
     const carName = await elements.text
-    // const regexCarName = /\(([^()]*)\) // pour enlever les informations sur les moteurs entre parenthèse
+
     setCarName(carName)
   }
-
-  console.log(immat)
 
   return (
     <Container
