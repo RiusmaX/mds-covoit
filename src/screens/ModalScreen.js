@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Center, Container, Text } from 'native-base'
 
-function ModalScreen ({ navigation }) {
+function ModalScreen({ navigation }) {
   return (
     <Container h='100%' w='100%'>
       <Center>

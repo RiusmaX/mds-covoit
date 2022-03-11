@@ -1,12 +1,16 @@
-import { Avatar, Image } from 'native-base'
-// import { randomColor } from 'native-base/lib/typescript/theme/tools'
-import React, { useEffect, useState } from 'react'
-import { PermissionsAndroid, StyleSheet, View } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, View } from 'react-native'
 import { useGeo, getLocation } from '../../contexts/GeoContext'
-import { getAllTrips } from '../../services/Api'
+// import { getAllTrips } from '../../services/Api'
 import MapboxGL from '@react-native-mapbox-gl/maps'
+import { lineString as makeLineString } from '@turf/helpers'
+import MapboxDirectionsFactory from '@mapbox/mapbox-sdk/services/directions'
 
-MapboxGL.setAccessToken('pk.eyJ1Ijoia2VyaGFjNDQiLCJhIjoiY2t6emtnbG5kMDFoMzNpbDFueDY3amNqdiJ9.FTFYTVaUdf5lLJXrB9pzgQ')
+const accessToken = 'sk.eyJ1Ijoia2VyaGFjNDQiLCJhIjoiY2wwMmp4ODQ1MDQ1bzNkcXBkZmVidjQ1eiJ9.8QTY8SKxsc3D5uNPV5lVNQ'
+
+MapboxGL.setAccessToken(accessToken)
+
+const directionsClient = MapboxDirectionsFactory({ accessToken })
 
 const styles = StyleSheet.create({
   page: {
@@ -26,100 +30,117 @@ const styles = StyleSheet.create({
 })
 
 export const Maps = () => {
-  const [trips, setTrips] = useState([])
-  const [mapMargin, setMapMargin] = useState(1)
-  const [mapPaddingTop, setMapPaddingTop] = useState()
+  const startingPoint = [-1.542727915806437, 47.21802680279227]
+  const destinationPoint = [-1.6192593177734804, 47.24401906505962]
+
+  // state qui contient le chemin
+  const [route, setRoute] = useState(null)
+
+  // tableau qui contient le point de départ et d'arrivé, il sert pour faire la route
+  const startDestinationPoints = [startingPoint, destinationPoint]
+
+  //   const [trips, setTrips] = useState([])
   const { dispatch, state: { data } } = useGeo()
+  const [coordinates, setCoordinates] = useState()
 
   useEffect(() => {
-    setTimeout(() => {
-      setMapMargin(1)
-      setMapMargin(1)
-    }, 100)
     getLocation(dispatch)
+    if (data) setCoordinates([data?.coords.longitude, data?.coords.latitude])
   }, [])
-  const onMapReady = () => {
-    PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-    )
-      .then((granted) => {
-        setMapMargin(0)
-        setMapMargin(0)
-      })
-      .finally(() => {
-        setMapMargin(0)
-        setMapPaddingTop(0)
-      })
-
-    setMapMargin(0)
-    setMapPaddingTop(0)
-  }
-
-  const getTrips = async () => {
-    const trips = await getAllTrips()
-
-    setTrips(trips)
-  }
 
   useEffect(() => {
-    getTrips()
-  }, [])
+    fetchRoute()
+  })
+
+  // const getTrips = async () => {
+  //   const trips = await getAllTrips()
+  //   setTrips(trips)
+  // }
+
+  // useEffect(() => {
+  //   getTrips()
+  // }, [])
+
+  /**
+   * La requête qui permet de calculer le chemin pour aller d'un point A à un point B
+   */
+  const fetchRoute = async () => {
+    const reqOptions = {
+      waypoints: [
+        { coordinates: startingPoint },
+        { coordinates: destinationPoint }
+      ],
+      profile: 'driving-traffic',
+      geometries: 'geojson',
+      overview: 'full'
+    }
+
+    const res = await directionsClient.getDirections(reqOptions).send()
+
+    const newRoute = makeLineString(res.body.routes[0].geometry.coordinates)
+    setRoute(newRoute)
+  }
+
+  /**
+   * Génère les différent point sur la carte
+   * @returns Liste de composant
+   */
+  const renderAnnotations = () => {
+    return (
+      <>
+        {startDestinationPoints.map((point, index) => (
+          <MapboxGL.PointAnnotation
+            key={`${index}-PointAnnotation`}
+            id={`${index}-PointAnnotation`}
+            coordinate={point}
+          >
+            <View style={{
+              height: 30,
+              width: 30,
+              backgroundColor: '#00cccc',
+              borderRadius: 50,
+              borderColor: '#fff',
+              borderWidth: 3
+            }}
+            />
+          </MapboxGL.PointAnnotation>
+        ))}
+        <MapboxGL.PointAnnotation coordinate={coordinates} />
+      </>
+    )
+  }
 
   return (
     <View style={styles.page}>
       <View style={styles.container}>
         <MapboxGL.MapView
           style={styles.map}
+          styleURL={MapboxGL.StyleURL.Street}
+          zoomLevel={11}
+          centerCoordinate={startingPoint}
           zoomEnabled
           scrollEnabled
           pitchEnabled
           rotateEnabled
+          compassEnabled
+          logoEnabled={false}
           attributionEnabled={false}
-        />
+        >
+          <MapboxGL.Camera
+            zoomLevel={11}
+            centerCoordinate={coordinates}
+            animationDuration={0}
+          />
+          {renderAnnotations()}
+          {
+            route && (
+              <MapboxGL.ShapeSource id='shapeSource' shape={route}>
+                <MapboxGL.LineLayer id='lineLayer' style={{ lineWidth: 5, lineJoin: 'bevel', lineColor: '#000' }} />
+              </MapboxGL.ShapeSource>
+            )
+          }
+        </MapboxGL.MapView>
       </View>
     </View>
   )
-
-  // return (
-  //   <MapView
-  //     provider='google'
-  //     style={{
-  //       flex: 1,
-  //       width: '100%',
-  //       height: '100%',
-  //       marginBottom: mapMargin
-  //     }}
-  //     zoomControlEnabled
-  //     showsUserLocation
-  //     showsMyLocationButton
-  //     showsCompass
-  //     showsScale
-  //     onMapReady={onMapReady}
-  //   >
-  //     <Marker
-  //       pinColor='red'
-  //       coordinate={{
-  //         latitude: data.coords.latitude,
-  //         longitude: data.coords.longitude
-  //       }}
-  //     />
-  //     {/* On ajoute sur la carte les différents points de départs */}
-  //     {trips.data && trips?.data?.map((trip) => {
-  //       return (
-  //         <Marker
-  //           key={trip.id}
-  //           pinColor='blue'
-  //           coordinate={{
-  //             latitude: trip.attributes.departurePoint.latitude,
-  //             longitude: trip.attributes.departurePoint.longitude
-  //           }}
-  //         >
-  //           {/* On met l'image du pilote ou ses initiales */}
-  //           <Avatar shadow={1} bg='primary.500' source={{ uri: trip.attributes.pilot.data.attributes.avatar || '' }}>{trip.attributes.pilot.data.attributes.username.substring(0, 2).toUpperCase()}</Avatar>
-  //         </Marker>
-  //       )
-  //     })}
-
-  //   </MapView>
-  // )
 }
