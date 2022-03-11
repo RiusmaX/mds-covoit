@@ -1,5 +1,5 @@
 import React from 'react'
-import { Center, Container, Fab } from 'native-base'
+import { Container, Fab } from 'native-base'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import { TabsComponent } from '../components/tabs/Tabs'
@@ -7,8 +7,6 @@ import { Maps } from '../components/maps/Maps'
 import { Lines } from '../components/lines/Lines'
 
 function LinesScreen ({ navigation }) {
-
-
   return (
     <Container
       style={{ maxWidth: '100%' }}
