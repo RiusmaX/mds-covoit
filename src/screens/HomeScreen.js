@@ -3,6 +3,7 @@ import { Button, Container, Text } from 'native-base'
 import ProfilNotCompleteAlert from '../components/alerts/ProfilNotCompleteAlert'
 import { useAuth } from '../contexts/AuthContext'
 import { useGeo, getLocation } from '../contexts/GeoContext'
+import { useEffect } from 'react/cjs/react.production.min'
 
 function HomeScreen ({ navigation }) {
   const { state } = useAuth()
@@ -10,6 +11,7 @@ function HomeScreen ({ navigation }) {
 
   const handleLocationPress = () => {
     getLocation(dispatch)
+    console.log([data?.coords.longitude, data?.coords.latitude])
   }
 
   return (

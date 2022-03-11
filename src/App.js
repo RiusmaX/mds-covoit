@@ -12,9 +12,6 @@ import Navigator from './navigation/Navigator'
 import { getTheme } from './theme/Theme'
 import { GeoProvider, setLocation, useGeo } from './contexts/GeoContext'
 import Geolocation, { clearWatch } from 'react-native-geolocation-service'
-import RNBootSplash from "react-native-bootsplash";
- 
-
 import RNBootSplash from 'react-native-bootsplash'
 
 const WithContext = () => {
@@ -25,16 +22,14 @@ const WithContext = () => {
   )
 }
 
-
-useEffect(()=> {
-  RNBootSplash.hide({ fade: true }); // fade
-},[])
-
-
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
 
   const { dispatch } = useGeo()
+
+  useEffect(() => {
+    RNBootSplash.hide({ fade: true }) // fade
+  }, [])
 
   useEffect(() => {
     const watchId = Geolocation.watchPosition((position) => {
@@ -44,7 +39,7 @@ const App = () => {
     (error) => {
       console.log(error)
     },
-    { enableHighAccuracy: true, interval: 1000, showLocationDialog: true })
+    { enableHighAccuracy: true, fastestInterval: 1000, showLocationDialog: true })
     return () => {
       clearWatch(watchId)
     }
