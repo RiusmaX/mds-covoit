@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useGeo, getLocation } from '../../contexts/GeoContext'
 // import { getAllTrips } from '../../services/Api'
-import MapboxGL from '@react-native-mapbox-gl/maps'
+import MapboxGL, { MarkerView } from '@react-native-mapbox-gl/maps'
 import { lineString as makeLineString } from '@turf/helpers'
 import MapboxDirectionsFactory from '@mapbox/mapbox-sdk/services/directions'
+import AutoComplete from '../autocomplete/AutoComplete'
 
 const accessToken =
   'sk.eyJ1Ijoia2VyaGFjNDQiLCJhIjoiY2wwMmp4ODQ1MDQ1bzNkcXBkZmVidjQ1eiJ9.8QTY8SKxsc3D5uNPV5lVNQ'
@@ -119,6 +120,9 @@ export const Maps = () => {
   return (
     <View style={styles.page}>
       <View style={styles.container}>
+        <View>
+          <AutoComplete />
+        </View>
         <MapboxGL.MapView
           style={styles.map}
           styleURL={MapboxGL.StyleURL.Street}
@@ -132,6 +136,13 @@ export const Maps = () => {
           logoEnabled={false}
           attributionEnabled={false}
         >
+          {/* Marker autocomplete maps */}
+          <MarkerView
+            coordinate={[-1.54781, 47.2155166]}
+            id='1'
+            color='red'
+            label='Label 1'
+          />
           <MapboxGL.Camera
             zoomLevel={11}
             centerCoordinate={coordinates}
