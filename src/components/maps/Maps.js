@@ -6,7 +6,8 @@ import MapboxGL from '@react-native-mapbox-gl/maps'
 import { lineString as makeLineString } from '@turf/helpers'
 import MapboxDirectionsFactory from '@mapbox/mapbox-sdk/services/directions'
 
-const accessToken = 'sk.eyJ1Ijoia2VyaGFjNDQiLCJhIjoiY2wwMmp4ODQ1MDQ1bzNkcXBkZmVidjQ1eiJ9.8QTY8SKxsc3D5uNPV5lVNQ'
+const accessToken =
+  'sk.eyJ1Ijoia2VyaGFjNDQiLCJhIjoiY2wwMmp4ODQ1MDQ1bzNkcXBkZmVidjQ1eiJ9.8QTY8SKxsc3D5uNPV5lVNQ'
 
 MapboxGL.setAccessToken(accessToken)
 
@@ -40,7 +41,10 @@ export const Maps = () => {
   const startDestinationPoints = [startingPoint, destinationPoint]
 
   //   const [trips, setTrips] = useState([])
-  const { dispatch, state: { data } } = useGeo()
+  const {
+    dispatch,
+    state: { data }
+  } = useGeo()
   const [coordinates, setCoordinates] = useState()
 
   useEffect(() => {
@@ -86,28 +90,30 @@ export const Maps = () => {
    * @returns Liste de composant
    */
   const renderAnnotations = () => {
-    return (
-      <>
-        {startDestinationPoints.map((point, index) => (
-          <MapboxGL.PointAnnotation
-            key={`${index}-PointAnnotation`}
-            id={`${index}-PointAnnotation`}
-            coordinate={point}
-          >
-            <View style={{
-              height: 30,
-              width: 30,
-              backgroundColor: '#00cccc',
-              borderRadius: 50,
-              borderColor: '#fff',
-              borderWidth: 3
-            }}
-            />
-          </MapboxGL.PointAnnotation>
-        ))}
-        <MapboxGL.PointAnnotation coordinate={coordinates} />
-      </>
-    )
+    if (startDestinationPoints && startDestinationPoints.length > 0) {
+      return (
+        <>
+          {startDestinationPoints.map((point, index) => (
+            <MapboxGL.PointAnnotation
+              key={`${index}-PointAnnotation`}
+              id={`${index}-PointAnnotation`}
+              coordinate={point}
+            >
+              <View
+                style={{
+                  height: 30,
+                  width: 30,
+                  backgroundColor: '#00cccc',
+                  borderRadius: 50,
+                  borderColor: '#fff',
+                  borderWidth: 3
+                }}
+              />
+            </MapboxGL.PointAnnotation>
+          ))}
+        </>
+      )
+    }
   }
 
   return (
@@ -132,13 +138,14 @@ export const Maps = () => {
             animationDuration={0}
           />
           {renderAnnotations()}
-          {
-            route && (
-              <MapboxGL.ShapeSource id='shapeSource' shape={route}>
-                <MapboxGL.LineLayer id='lineLayer' style={{ lineWidth: 5, lineJoin: 'bevel', lineColor: '#000' }} />
-              </MapboxGL.ShapeSource>
-            )
-          }
+          {route && (
+            <MapboxGL.ShapeSource id='shapeSource' shape={route}>
+              <MapboxGL.LineLayer
+                id='lineLayer'
+                style={{ lineWidth: 5, lineJoin: 'bevel', lineColor: '#000' }}
+              />
+            </MapboxGL.ShapeSource>
+          )}
         </MapboxGL.MapView>
       </View>
     </View>

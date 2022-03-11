@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Button, Text, VStack } from 'native-base'
+import { Avatar, Badge, Box, Text, VStack } from 'native-base'
 import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -60,20 +60,28 @@ function Trip ({ trip }) {
             _text={{ color: '#fff' }}
             marginRight={2}
             size={10}
-            source={{ uri: trip?.pilot?.data?.attributes?.avatar || 'FAKE' }}
+            source={
+              trip?.pilot?.data?.attributes?.avatar
+                ? { uri: trip?.pilot?.data?.attributes?.avatar || 'FAKE' }
+                : null
+            }
           >
             {trip.pilot.data.attributes.username.substring(0, 2).toUpperCase()}
           </Avatar>
           <Text>{trip.pilot.data.attributes.username}</Text>
           <Avatar.Group size='xs' max={3}>
-            {trip.passengers.data.map(passenger => {
+            {trip.passengers.data.map((passenger, index) => {
               return (
                 <Avatar
                   bg='orange.300'
                   _text={{ color: '#fff', fontWeight: 'bold' }}
                   size='xs'
-                  key={passenger.id}
-                  source={{ uri: passenger?.attributes?.avatar || 'FAKE' }}
+                  key={passenger.id.toString() + index.toString()}
+                  source={
+                    passenger?.attributes?.avatar
+                      ? { uri: passenger?.attributes?.avatar || 'FAKE' }
+                      : null
+                  }
                 >
                   {passenger?.attributes.username.substring(0, 2).toUpperCase()}
                 </Avatar>
