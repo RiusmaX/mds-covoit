@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Text, VStack } from 'native-base'
+import { Avatar, Badge, Box, Button, Text, VStack } from 'native-base'
 import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 

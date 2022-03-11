@@ -28,6 +28,10 @@ const App = () => {
   const { dispatch } = useGeo()
 
   useEffect(() => {
+    RNBootSplash.hide({ fade: true }) // fade
+  }, [])
+
+  useEffect(() => {
     const watchId = Geolocation.watchPosition((position) => {
       console.log('NEW POSITION')
       setLocation(dispatch, position)
@@ -35,7 +39,7 @@ const App = () => {
     (error) => {
       console.log(error)
     },
-    { enableHighAccuracy: true, interval: 1000, showLocationDialog: true })
+    { enableHighAccuracy: true, fastestInterval: 1000, showLocationDialog: true })
     return () => {
       clearWatch(watchId)
     }
