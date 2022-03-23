@@ -9,11 +9,14 @@ import { getTheme } from './theme/Theme'
 import { GeoProvider, setLocation, useGeo } from './contexts/GeoContext'
 import Geolocation from 'react-native-geolocation-service'
 import RNBootSplash from 'react-native-bootsplash'
+import { AddTripProvider } from './contexts/AddTripContext'
 
 const WithContext = () => {
   return (
     <GeoProvider onReady={() => RNBootSplash.hide({ fade: true })}>
-      <App />
+      <AddTripProvider>
+        <App />
+      </AddTripProvider>
     </GeoProvider>
   )
 }
@@ -24,6 +27,13 @@ const App = () => {
   const { dispatch } = useGeo()
 
   useEffect(() => {
+    const watchId = Geolocation.watchPosition((position) => {
+      setLocation(dispatch, position)
+    },
+    (error) => {
+      console.error(error)
+    },
+    { enableHighAccuracy: true, fastestInterval: 1000, showLocationDialog: true })
     const watchId = Geolocation.watchPosition(
       position => {
         console.log('NEW POSITION')

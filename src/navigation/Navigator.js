@@ -9,7 +9,7 @@ import HomeScreen from '../screens/HomeScreen'
 import TabBar from './TabBar'
 import ProfileScreen from '../screens/ProfileScreen'
 import LinesScreen from '../screens/LinesScreen'
-import ModalScreen from '../screens/ModalScreen'
+import AddTripModal from '../screens/AddTripModal/AddTripModal'
 
 const MainNavigator = createBottomTabNavigator()
 
@@ -43,7 +43,7 @@ function MainTabNavigator () {
         <MainNavigator.Screen name='Profile' options={{ tabBarIcon: 'person' }} component={ProfileScreen} />
       </MainNavigator.Group>
       <MainNavigator.Group screenOptions={{ presentation: 'modal' }}>
-        <MainNavigator.Screen name='Modal' component={ModalScreen} />
+        <MainNavigator.Screen name='Modal' component={AddTripModal} />
       </MainNavigator.Group>
     </MainNavigator.Navigator>
   )
