@@ -7,7 +7,7 @@ const AutoComplete = () => {
     latitude: '',
     longitude: ''
   })
-  console.log(coordinate)
+  // console.log(coordinate)
   return (
     <View style={{ width: 500, height: 100, zIndex: 10, marginTop: 10 }}>
       <GooglePlacesAutocomplete
@@ -17,7 +17,10 @@ const AutoComplete = () => {
           // console.log('data', data)
           // console.log('details', details.geometry.location.lat)
           // console.log('details', details.geometry.location.lng)
-          setCoordinate({ latitude: details.geometry.location.lat, longitude: details.geometry.location.lng })
+          setCoordinate({
+            latitude: details.geometry.location.lat,
+            longitude: details.geometry.location.lng
+          })
         }}
         // Google places
         query={{
