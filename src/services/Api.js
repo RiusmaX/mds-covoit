@@ -17,7 +17,7 @@ const api = axios.create({
  * @param { Object } credentials
  * @returns { Object }
  */
-const loginWithCredentials = async (credentials) => {
+const loginWithCredentials = async credentials => {
   try {
     const response = await api.post('/auth/local', credentials)
     return response.data
@@ -31,9 +31,12 @@ const loginWithCredentials = async (credentials) => {
  * @param { props } registrationCredentials Credentials for registration email or username + password requireds
  * @returns { Function } Registration with credentials
  */
-const registerWithRegistrationCredentials = async (registrationCredentials) => {
+const registerWithRegistrationCredentials = async registrationCredentials => {
   try {
-    const response = await api.post('/auth/local/register', registrationCredentials)
+    const response = await api.post(
+      '/auth/local/register',
+      registrationCredentials
+    )
     return response.data
   } catch (error) {
     console.error(error)
@@ -58,7 +61,7 @@ const getAllTrips = async () => {
  * @param { Number } tripId
  * @returns { Object }
  */
-const getOneTrip = async (tripId) => {
+const getOneTrip = async tripId => {
   try {
     const response = await api.get(`/trips/${tripId}`)
     return response.data
@@ -84,25 +87,49 @@ const getUserInfos = async () => {
   }
 }
 
-const uploadPicture = async (path, filename) => {
+const uploadPicture = async img => {
   const getUserToken = await AsyncStorage.getItem('AUTH')
   const userToken = getUserToken ? JSON.parse(getUserToken).token : null
 
-  const fileData = {
-    filename,
-    type: 'image/jpeg',
-    data: RNFetchBlob.wrap(path)
-  }
+  const formData = new FormData()
+  const uri = img.uri
 
-  RNFetchBlob.fetch('POST', 'https://mds-covoit.sergent.tech/api/upload', {
-    'Content-Type': 'multipart/form-data',
-    Authorization: `Bearer ${userToken}`
-
-  }, [fileData]).then((res) => {
-    console.log(JSON.stringify(res))
-  }).catch((error) => {
-    console.error(JSON.stringify(error))
+  formData.append('files', {
+    name: img.fileName,
+    type: img.type,
+    uri: Platform.OS === 'ios' ? uri.replace('file://', '') : uri
   })
+
+  window
+    .fetch('https://mds-covoit.sergent.tech/api/upload', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${userToken}`
+      },
+      body: formData
+    })
+    .then(response => response.json())
+    .then(result => console.log('result', JSON.stringify(result)))
+    .catch(error => {
+      console.error(error)
+      throw new Error(error)
+    })
+
+  // const fileData = {
+  //   filename,
+  //   type: 'image/jpeg',
+  //   data: RNFetchBlob.wrap(path)
+  // }
+
+  // RNFetchBlob.fetch('POST', 'https://mds-covoit.sergent.tech/api/upload', {
+  //   'Content-Type': 'multipart/form-data',
+  //   Authorization: `Bearer ${userToken}`
+
+  // }, [fileData]).then((res) => {
+  //   console.log(JSON.stringify(res))
+  // }).catch((error) => {
+  //   console.error(JSON.stringify(error))
+  // })
 
   // const config = {
   //   method: 'post',

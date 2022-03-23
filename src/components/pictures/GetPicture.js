@@ -11,7 +11,7 @@ export const GetPicture = ({ img }) => {
 
   // La fonction qui permet d'aller chercher les photos dans la bibliothèque, on y limite aux photos
   const resultLibrary = async () => {
-    const data = await launchImageLibrary({ mediaType: 'photo' }, (response) => {
+    const data = await launchImageLibrary({ mediaType: 'photo' }, response => {
       console.log('Response = ', response)
 
       if (response.didCancel) {
@@ -27,15 +27,18 @@ export const GetPicture = ({ img }) => {
         console.error(response.errorMessage)
         return
       }
-      console.log('base64 -> ', response?.assets[0].base64)
-      console.log('uri -> ', response?.assets[0].uri)
-      console.log('width -> ', response?.assets[0].width)
-      console.log('height -> ', response?.assets[0].height)
-      console.log('fileSize -> ', response?.assets[0].fileSize)
-      console.log('type -> ', response?.assets[0].type)
-      console.log('fileName -> ', response?.assets[0].fileName)
+      // console.log('base64 -> ', response?.assets[0].base64)
+      // console.log('uri -> ', response?.assets[0].uri)
+      // console.log('width -> ', response?.assets[0].width)
+      // console.log('height -> ', response?.assets[0].height)
+      // console.log('fileSize -> ', response?.assets[0].fileSize)
+      // console.log('type -> ', response?.assets[0].type)
+      // console.log('fileName -> ', response?.assets[0].fileName)
 
-      const path = Platform.OS === 'android' ? response?.assets[0].uri : response?.assets[0].uri.replace('file://', '')
+      const path =
+        Platform.OS === 'android'
+          ? response?.assets[0].uri
+          : response?.assets[0].uri.replace('file://', '')
 
       setProfilePicture(path)
     })
@@ -43,7 +46,7 @@ export const GetPicture = ({ img }) => {
 
   // La fonction qui permet d'aller capturer une photo avec l'appareil, on y limite aux photos
   const resultCamera = async () => {
-    launchCamera({ mediaType: 'photo' }, async (response) => {
+    launchCamera({ mediaType: 'photo' }, async response => {
       console.log('Response = ', response)
 
       if (response.didCancel) {
@@ -59,20 +62,17 @@ export const GetPicture = ({ img }) => {
         console.error(response.errorMessage)
         return
       }
-      console.log('base64 -> ', response?.assets[0].base64)
-      console.log('uri -> ', response?.assets[0].uri)
-      console.log('width -> ', response?.assets[0].width)
-      console.log('height -> ', response?.assets[0].height)
-      console.log('fileSize -> ', response?.assets[0].fileSize)
-      console.log('type -> ', response?.assets[0].type)
-      console.log('fileName -> ', response?.assets[0].fileName)
+
+      const uri = response?.assets[0].uri
 
       // On enlève "file://" pour les smartphones IOS qui n'ont pas cela dans leur chemin
-      const path = Platform.OS === 'android' ? response?.assets[0].uri : response?.assets[0].uri.replace('file://', '')
+      // const path = Platform.OS === 'android' ? response?.assets[0].uri : response?.assets[0].uri.replace('file://', '')
 
-      setProfilePicture(path)
+      setProfilePicture(
+        Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+      )
 
-      await uploadPicture(path, response?.assets[0].fileName)
+      await uploadPicture(response?.assets[0])
     })
   }
 
@@ -81,26 +81,31 @@ export const GetPicture = ({ img }) => {
       <Pressable onPress={() => setShowModal(true)}>
         <Avatar source={{ uri: profilePicture }} size='xl' />
 
-        <Icon name='refresh' style={{ position: 'absolute', color: 'black', bottom: 0, right: 0 }} size={25} />
-
+        <Icon
+          name='refresh'
+          style={{ position: 'absolute', color: 'black', bottom: 0, right: 0 }}
+          size={25}
+        />
       </Pressable>
 
       <Text>{profilePicture}</Text>
 
       <Modal isOpen={showModal} size='xl' onClose={() => setShowModal(false)}>
         <Modal.Content>
-
           <Modal.Header>Importer une image</Modal.Header>
           <Modal.Body flexDirection='row'>
-            <Button onPress={resultLibrary} marginX={2}><Icon name='book' color='white' size={25} /></Button>
-            <Button onPress={resultCamera} marginX={2}><Icon name='camera' color='white' size={25} /></Button>
+            <Button onPress={resultLibrary} marginX={2}>
+              <Icon name='book' color='white' size={25} />
+            </Button>
+            <Button onPress={resultCamera} marginX={2}>
+              <Icon name='camera' color='white' size={25} />
+            </Button>
           </Modal.Body>
           <Modal.Footer>
             <Button onPress={() => setShowModal(false)}>Annuler</Button>
           </Modal.Footer>
         </Modal.Content>
       </Modal>
-
     </>
   )
 }
