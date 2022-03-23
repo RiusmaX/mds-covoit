@@ -18,11 +18,13 @@ function HomeScreen ({ navigation }) {
   }
   return (
     <>
-      {!isProfileComplete() ? (
-        <ProfilNotCompleteAlert
-          onPressGoProfile={() => navigation.navigate('Profile')}
-        />
-      ) : null}
+      {!isProfileComplete()
+        ? (
+          <ProfilNotCompleteAlert
+            onPressGoProfile={() => navigation.navigate('Profile')}
+          />
+          )
+        : null}
       <Container w='100%'>
         <Box style={homeStyle.container}>
           <Heading style={homeStyle.heading}>
