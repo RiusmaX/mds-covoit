@@ -27,13 +27,6 @@ const App = () => {
   const { dispatch } = useGeo()
 
   useEffect(() => {
-    const watchId = Geolocation.watchPosition((position) => {
-      setLocation(dispatch, position)
-    },
-    (error) => {
-      console.error(error)
-    },
-    { enableHighAccuracy: true, fastestInterval: 1000, showLocationDialog: true })
     const watchId = Geolocation.watchPosition(
       position => {
         console.log('NEW POSITION')
