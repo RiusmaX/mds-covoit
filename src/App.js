@@ -24,11 +24,6 @@ const WithContext = () => {
 }
 
 
-useEffect(()=> {
-  RNBootSplash.hide({ fade: true }); // fade
-},[])
-
-
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
 
@@ -61,7 +56,9 @@ const App = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <AuthProvider>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <NavigationContainer theme={navigationTheme}>
+        <NavigationContainer theme={navigationTheme}
+        onReady={() => RNBootSplash.hide({fade: true})}
+        >
           <NativeBaseProvider theme={theme}>
             <Navigator />
           </NativeBaseProvider>

@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
+import FormData from 'form-data'
+import RNFetchBlob from 'rn-fetch-blob'
 
 const api = axios.create({
   baseURL: 'https://mds-covoit.sergent.tech/api',
@@ -82,10 +84,43 @@ const getUserInfos = async () => {
   }
 }
 
+const uploadPicture = async (path, filename) => {
+  const getUserToken = await AsyncStorage.getItem('AUTH')
+  const userToken = getUserToken ? JSON.parse(getUserToken).token : null
+
+  const fileData = {
+    filename,
+    type: 'image/jpeg',
+    data: RNFetchBlob.wrap(path)
+  }
+
+  RNFetchBlob.fetch('POST', 'https://mds-covoit.sergent.tech/api/upload', {
+    'Content-Type': 'multipart/form-data',
+    Authorization: `Bearer ${userToken}`
+
+  }, [fileData]).then((res) => {
+    console.log(JSON.stringify(res))
+  }).catch((error) => {
+    console.error(JSON.stringify(error))
+  })
+
+  // const config = {
+  //   method: 'post',
+  //   url: 'https://mds-covoit.sergent.tech/api/upload',
+  //   headers: {
+  //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjQ2OTA0ODk2LCJleHAiOjE2NDk0OTY4OTZ9.Eky5_Xe1uGMEiZO0UOKo0WftV7kRx1l49VeXPLIrYJI',
+  //     'Content-Type': 'multipart/form-data'
+
+  //   },
+  //   data: data
+  // }
+}
+
 export {
   loginWithCredentials,
   registerWithRegistrationCredentials,
   getAllTrips,
   getOneTrip,
-  getUserInfos
+  getUserInfos,
+  uploadPicture
 }

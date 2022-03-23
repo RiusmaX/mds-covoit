@@ -1,9 +1,9 @@
 {
-  "workbench.colorCustomizations": {
-    "activityBar.background": "#571805",
-    "titleBar.activeBackground": "#7A2107",
-    "titleBar.activeForeground": "#FFFBFA"
-  },
+  // "workbench.colorCustomizations": {
+  //   "activityBar.background": "#571805",
+  //   "titleBar.activeBackground": "#7A2107",
+  //   "titleBar.activeForeground": "#FFFBFA"
+  // },
   "editor.formatOnSave": true,
   "prettier.requireConfig": true
 }

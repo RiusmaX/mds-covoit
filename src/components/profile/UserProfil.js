@@ -31,11 +31,11 @@ function UserProfil () {
     >
       <Box>
         <Center>
-          <Flex direction='row'>
+          <Flex flexDirection='row'>
             <Text style={styles.titleText}>{userInfos.firstName}</Text>
             <Text style={styles.titleText}>{userInfos.lastName}</Text>
           </Flex>
-          <Flex direction='row'>
+          <Flex flexDirection='row'>
             <Text style={styles.tags}>{userInfos.school}</Text>
             <Text style={styles.tags}>{userInfos.status}</Text>
             {studentUser}
