@@ -14,9 +14,9 @@ const AutoComplete = () => {
         fetchDetails
         placeholder='Search'
         onPress={(data, details = null) => {
-          console.log('data', data)
-          console.log('details', details.geometry.location.lat)
-          console.log('details', details.geometry.location.lng)
+          // console.log('data', data)
+          // console.log('details', details.geometry.location.lat)
+          // console.log('details', details.geometry.location.lng)
           setCoordinate({ latitude: details.geometry.location.lat, longitude: details.geometry.location.lng })
         }}
         // Google places
