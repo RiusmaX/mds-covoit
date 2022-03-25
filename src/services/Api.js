@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import FormData from 'form-data'
-import RNFetchBlob from 'rn-fetch-blob'
+import Platform from 'react-native'
 
 const api = axios.create({
   baseURL: 'https://mds-covoit.sergent.tech/api',
@@ -100,47 +100,21 @@ const uploadPicture = async img => {
     uri: Platform.OS === 'ios' ? uri.replace('file://', '') : uri
   })
 
-  window
-    .fetch('https://mds-covoit.sergent.tech/api/upload', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${userToken}`
-      },
-      body: formData
-    })
-    .then(response => response.json())
-    .then(result => console.log('result', JSON.stringify(result)))
-    .catch(error => {
-      console.error(error)
-      throw new Error(error)
-    })
-
-  // const fileData = {
-  //   filename,
-  //   type: 'image/jpeg',
-  //   data: RNFetchBlob.wrap(path)
-  // }
-
-  // RNFetchBlob.fetch('POST', 'https://mds-covoit.sergent.tech/api/upload', {
-  //   'Content-Type': 'multipart/form-data',
-  //   Authorization: `Bearer ${userToken}`
-
-  // }, [fileData]).then((res) => {
-  //   console.log(JSON.stringify(res))
-  // }).catch((error) => {
-  //   console.error(JSON.stringify(error))
-  // })
-
-  // const config = {
-  //   method: 'post',
-  //   url: 'https://mds-covoit.sergent.tech/api/upload',
-  //   headers: {
-  //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjQ2OTA0ODk2LCJleHAiOjE2NDk0OTY4OTZ9.Eky5_Xe1uGMEiZO0UOKo0WftV7kRx1l49VeXPLIrYJI',
-  //     'Content-Type': 'multipart/form-data'
-
-  //   },
-  //   data: data
-  // }
+  try {
+    const response = await window
+      .fetch('https://mds-covoit.sergent.tech/api/upload', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        },
+        body: formData
+      })
+    const result = await response.json()
+    return result
+  } catch (error) {
+    console.error(error)
+    throw new Error(error)
+  }
 }
 
 export {
