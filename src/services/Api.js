@@ -82,10 +82,25 @@ const getUserInfos = async () => {
   }
 }
 
+/**
+ * Add Trip
+ * @param { Object } datas
+ * @returns { Object }
+ */
+const postTrip = async (datas) => {
+  try {
+    const response = await api.post('/trips', datas)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export {
   loginWithCredentials,
   registerWithRegistrationCredentials,
   getAllTrips,
   getOneTrip,
+  postTrip,
   getUserInfos
 }

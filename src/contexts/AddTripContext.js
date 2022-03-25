@@ -3,6 +3,8 @@ import AddTripModalScreen1 from '../screens/AddTripModal/_internal/AddTripModalS
 import AddTripModalScreen2 from '../screens/AddTripModal/_internal/AddTripModalScreen2'
 import AddTripModalScreen3 from '../screens/AddTripModal/_internal/AddTripModalScreen3'
 import AddTripModalScreen4 from '../screens/AddTripModal/_internal/AddTripModalScreen4'
+import { postTrip } from '../services/Api'
+import { useAuth } from './AuthContext'
 
 const AddTripContext = createContext()
 
@@ -17,6 +19,8 @@ export const useAddTripContext = () => {
 }
 
 export const AddTripProvider = ({ children }) => {
+  const { state } = useAuth()
+
   const steps = [
     {
       Component: AddTripModalScreen1
@@ -45,22 +49,30 @@ export const AddTripProvider = ({ children }) => {
   const [tripDatas, setTripDatas] = useState({
     title: null,
     description: null,
-    pilot: null,
+    pilot: state?.user?.id,
     departurePoint: {
       name: null,
-      lat: null,
-      long: null
+      latitude: '47.2813569',
+      longitude: '-1.5852066'
     },
     arivalPoint: {
       name: 'Campus Eduservice',
-      lat: null,
-      long: null
+      latitude: '47.2464485168457',
+      longitude: '-1.6269460916519165'
     },
     waypoints: null,
     nbSeats: null,
     departureDate: new Date(),
     arivalDate: new Date()
   })
+
+  const addTrip = async (tripDatas) => {
+    try {
+      await postTrip(tripDatas)
+    } catch (error) {
+      console.error('error: ', error)
+    }
+  }
 
   const value = useMemo(
     () => ({
@@ -69,12 +81,14 @@ export const AddTripProvider = ({ children }) => {
       setActiveIndex,
       handleNext,
       handleBack,
+      addTrip,
       tripDatas,
       setTripDatas
     }),
     [
       activeIndex,
       setActiveIndex,
+      addTrip,
       handleNext,
       handleBack, tripDatas, setTripDatas
     ]
