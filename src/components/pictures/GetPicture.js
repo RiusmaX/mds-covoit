@@ -10,6 +10,7 @@ export const GetPicture = ({ children, setPicture }) => {
 
   // La fonction qui permet d'aller chercher les photos dans la bibliothèque, on y limite aux photos
   const resultLibrary = async () => {
+    // LaunchImageLibrary est une fonction de react-native-image-picker qui permet de récupérer une image depuis sa bibliothèque
     launchImageLibrary({ mediaType: 'photo' }, async response => {
       if (response.didCancel) {
         console.error('User cancelled camera picker')
@@ -26,6 +27,7 @@ export const GetPicture = ({ children, setPicture }) => {
       }
 
       try {
+        // Appel d'api pour upload l'image sur Strapi
         const result = await uploadPicture(response?.assets[0])
         setPicture(
           `https://mds-covoit.sergent.tech/${result[0].url}`
@@ -38,6 +40,7 @@ export const GetPicture = ({ children, setPicture }) => {
 
   // La fonction qui permet d'aller capturer une photo avec l'appareil, on y limite aux photos
   const resultCamera = async () => {
+    // LaunchCamera est une fonction de react-native-image-picker qui permet de récupérer une image depuis sa caméra
     launchCamera({ mediaType: 'photo' }, async response => {
       if (response.didCancel) {
         console.error('User cancelled camera picker')
@@ -54,6 +57,7 @@ export const GetPicture = ({ children, setPicture }) => {
       }
 
       try {
+        // Appel d'api pour upload l'image sur Strapi
         const result = await uploadPicture(response?.assets[0])
         setPicture(
           `https://mds-covoit.sergent.tech/${result[0].url}`
@@ -66,8 +70,8 @@ export const GetPicture = ({ children, setPicture }) => {
 
   return (
     <>
+    {/* On créé le bouton qui ouvre la modal, pour l'utiliser, il faudra donc entourer un bouton du composant GetPicture */}
       <Pressable onPress={() => setShowModal(true)}>
-
         {children}
       </Pressable>
 

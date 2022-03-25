@@ -87,16 +87,20 @@ const getUserInfos = async () => {
   }
 }
 
+// Envoi d'une image
 const uploadPicture = async img => {
+  // On récupère le Token de l'utilisateur
   const getUserToken = await AsyncStorage.getItem('AUTH')
   const userToken = getUserToken ? JSON.parse(getUserToken).token : null
 
+  // Pour envoyer l'image, il faut que l'envoi soit de type formulaire, on créé donc un FormData
   const formData = new FormData()
   const uri = img.uri
 
   formData.append('files', {
     name: img.fileName,
     type: img.type,
+    // Les images sur Android et ios ne sont pas stocké à la même adresse, Android rajoute 'file://'
     uri: Platform.OS === 'ios' ? uri.replace('file://', '') : uri
   })
 

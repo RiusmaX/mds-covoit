@@ -12,6 +12,7 @@ function HeaderProfil () {
       h='15%'
       w='100%'
     >
+      {/* GetPicture doit englober un bouton, qui ouvrira la modal de sélection de photo. */}
       <GetPicture img={profilePicture} setPicture={setProfilePicture}>
         <>
           <Avatar source={{ uri: profilePicture }} size='xl' />
