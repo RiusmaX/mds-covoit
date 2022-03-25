@@ -9,7 +9,9 @@ const actionTypes = {
   LOGIN: 'LOGIN',
   REGISTER: 'REGISTER',
   LOGOUT: 'LOGOUT',
-  ERROR: 'ERROR'
+  ERROR: 'ERROR',
+  UPDATE_PROFILE: 'UPDATE_PROFILE'
+
 }
 
 const initialState = {
@@ -29,6 +31,10 @@ const AuthReducer = (state, action) => {
       return {
         ...initialState, token: action.data.token, user: action.data.user
       }
+    case actionTypes.UPDATE_PROFILE:
+    return {
+      ...state, user: action.data.user
+    }
     case actionTypes.ERROR:
       return {
         ...initialState, error: action.data.error

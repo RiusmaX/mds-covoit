@@ -82,10 +82,33 @@ const getUserInfos = async () => {
   }
 }
 
+/**
+ * Modification du profil utilisateur
+ * @param { Object } data
+ * @returns { Object }
+ */
+const updateUserProfil = async (data) => {
+  const getUserToken = await AsyncStorage.getItem('AUTH')
+  const userToken = getUserToken ? JSON.parse(getUserToken).token : null
+  const user = getUserToken ? JSON.parse(getUserToken).user : null
+  try {
+    const response = await api.put(`users/${user.id}`, data, {
+      headers: {
+        Authorization: `Bearer ${userToken}`
+      }
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+
 export {
   loginWithCredentials,
   registerWithRegistrationCredentials,
   getAllTrips,
   getOneTrip,
-  getUserInfos
+  getUserInfos,
+  updateUserProfil
 }
