@@ -6,7 +6,9 @@ const tabBarStyle = StyleSheet.create({
     flexDirection: 'row',
     height: 70,
     backgroundColor: colors.background,
-    paddingVertical: 10
+    paddingVertical: 10,
+    borderTopColor: colors.primary[500],
+    borderTopWidth: 1
   },
   button: {
     flex: 1,
@@ -21,7 +23,7 @@ const tabBarStyle = StyleSheet.create({
   },
   buttonTextSelected: {
     textAlign: 'center',
-    color: colors.primary[50],
+    color: colors.primary[500],
     fontSize: 16,
     fontWeight: 'bold'
   }
@@ -36,7 +38,14 @@ const loginStyle = StyleSheet.create({
   }
 })
 
-export {
-  tabBarStyle,
-  loginStyle
-}
+const homeStyle = StyleSheet.create({
+  container: {
+    paddingHorizontal: 10,
+    paddingVertical: 20
+  },
+  heading: {
+    color: colors.primary[100]
+  }
+})
+
+export { tabBarStyle, loginStyle, homeStyle }

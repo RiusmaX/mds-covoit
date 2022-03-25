@@ -2,8 +2,9 @@ import React from 'react'
 import { logoutUser, useAuth } from '../../contexts/AuthContext'
 import { Box, Button, Center, Container, Flex, Text } from 'native-base'
 import { styles } from '../../theme/Profil'
+import CarInfos from './CarInfos'
 
-function UserProfil () {
+function UserProfil() {
   const { dispatch, state } = useAuth()
 
   // Déconnexion
@@ -49,6 +50,7 @@ function UserProfil () {
         <Text style={styles.titleText}>Véhicules</Text>
       </Box>
       <Button onPress={handleLogout} style={styles.logout} size='md'>Se déconnecter</Button>
+      <CarInfos />
     </Container>
   )
 }

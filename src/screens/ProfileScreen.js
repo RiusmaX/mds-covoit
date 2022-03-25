@@ -15,19 +15,20 @@ function ProfileScreen () {
   return (
     <>
       <HeaderProfil />
-
-      <TabsComponent views={[
-        {
-          key: 'first',
-          title: 'Profil',
-          component: UserProfil
-        },
-        {
-          key: 'second',
-          title: 'Mes trajets',
-          component: UserTrips
-        }
-      ]}
+      <TabsComponent
+        views={[
+          {
+            key: 'first',
+            title: 'Profil',
+            component: UserProfil
+          },
+          {
+            key: 'second',
+            title: 'Mes trajets',
+            component: UserTrips
+          }
+        ]}
+        style={{ marginTop: 30 }}
       />
     </>
   )
