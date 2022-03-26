@@ -1,9 +1,10 @@
 import React from 'react'
-import { Box, Container, Heading } from 'native-base'
+import { Box, Container, Heading, View } from 'native-base'
 import ProfilNotCompleteAlert from '../components/alerts/ProfilNotCompleteAlert'
 import { useAuth } from '../contexts/AuthContext'
 import { homeStyle } from '../theme/Styles'
 import _ from 'underscore'
+import AutoComplete from '../components/autocomplete/AutoComplete'
 
 function HomeScreen ({ navigation }) {
   const { state } = useAuth()
@@ -30,6 +31,7 @@ function HomeScreen ({ navigation }) {
           <Heading style={homeStyle.heading}>
             Hey! {state.user.firstName} 🤙
           </Heading>
+          <AutoComplete />
         </Box>
       </Container>
     </>

@@ -13,8 +13,8 @@ function TabBar ({ state, descriptors, navigation }) {
           options.tabBarLabel !== undefined
             ? options.tabBarLabel
             : options.title !== undefined
-            ? options.title
-            : route.name
+              ? options.title
+              : route.name
 
         if (!options.tabBarIcon) {
           return null

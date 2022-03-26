@@ -10,6 +10,7 @@ import TabBar from './TabBar'
 import ProfileScreen from '../screens/ProfileScreen'
 import LinesScreen from '../screens/LinesScreen'
 import AddTripModal from '../screens/AddTripModal/AddTripModal'
+import { Maps } from '../components/maps/Maps'
 
 const MainNavigator = createBottomTabNavigator()
 
@@ -44,6 +45,9 @@ function MainTabNavigator () {
       </MainNavigator.Group>
       <MainNavigator.Group screenOptions={{ presentation: 'modal' }}>
         <MainNavigator.Screen name='Modal' component={AddTripModal} />
+      </MainNavigator.Group>
+      <MainNavigator.Group>
+        <MainNavigator.Screen name='Maps' component={Maps} />
       </MainNavigator.Group>
     </MainNavigator.Navigator>
   )

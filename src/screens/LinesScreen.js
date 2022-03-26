@@ -6,10 +6,9 @@ import { TabsComponent } from '../components/tabs/Tabs'
 import { Maps } from '../components/maps/Maps'
 import { Lines } from '../components/lines/Lines'
 
-function LinesScreen ({ navigation }) {
+function LinesScreen({ navigation }) {
   return (
     <Container
-      style={{ maxWidth: '100%' }}
       h='100%'
       w='100%'
     >

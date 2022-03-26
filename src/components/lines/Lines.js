@@ -3,6 +3,7 @@ import { ScrollView, Skeleton, Text } from 'native-base'
 import { getAllTrips } from '../../services/Api'
 import Trip from '../trips/Trip'
 import { RefreshControl } from 'react-native'
+import AutoComplete from '../autocomplete/AutoComplete'
 
 export function Lines () {
   const [trips, setTrips] = useState([])
@@ -56,8 +57,10 @@ export function Lines () {
           refreshing={refreshing}
           onRefresh={onRefresh}
         />
-    }
+      }
     >
+      <AutoComplete />
+
       {/* On map les trajets disponibles */}
       {trips?.data.map((trip) => {
         return (

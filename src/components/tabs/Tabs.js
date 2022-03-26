@@ -14,9 +14,11 @@ const initialLayout = {
   width: Dimensions.get('window').width
 }
 
-export function TabsComponent ({ views, style }) {
+export function TabsComponent({ views, style }) {
   const [index, setIndex] = React.useState(0)
   const [routes] = React.useState(views)
+
+  console.log(views)
 
   const renderScene = SceneMap({
     first: views[0].component,
@@ -66,6 +68,8 @@ export function TabsComponent ({ views, style }) {
 
   return (
     <TabView
+      keyboardDismissMode='none'
+      swipeEnabled={false}
       navigationState={{
         index,
         routes

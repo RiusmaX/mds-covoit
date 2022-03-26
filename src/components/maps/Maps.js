@@ -23,20 +23,21 @@ const styles = StyleSheet.create({
   },
   container: {
     height: '100%',
-    width: '100%',
-    backgroundColor: 'tomato'
+    width: '100%'
   },
   map: {
     flex: 1
   }
 })
 
-export const Maps = () => {
+export const Maps = ({ route }) => {
+  // const { departurePoint, arrivalPoint } = route.params
+  // console.log('coucou')
   const startingPoint = [-1.542727915806437, 47.21802680279227]
   const destinationPoint = [-1.6192593177734804, 47.24401906505962]
 
   // state qui contient le chemin
-  const [route, setRoute] = useState(null)
+  const [way, setWay] = useState(null)
 
   // tableau qui contient le point de départ et d'arrivé, il sert pour faire la route
   const startDestinationPoints = [startingPoint, destinationPoint]
@@ -83,7 +84,7 @@ export const Maps = () => {
     const res = await directionsClient.getDirections(reqOptions).send()
 
     const newRoute = makeLineString(res.body.routes[0].geometry.coordinates)
-    setRoute(newRoute)
+    setWay(newRoute)
   }
 
   /**
@@ -104,7 +105,6 @@ export const Maps = () => {
                 style={{
                   height: 30,
                   width: 30,
-                  backgroundColor: '#00cccc',
                   borderRadius: 50,
                   borderColor: '#fff',
                   borderWidth: 3
@@ -118,11 +118,9 @@ export const Maps = () => {
   }
 
   return (
-    <View style={styles.page}>
-      <View style={styles.container}>
-        <View>
-          <AutoComplete />
-        </View>
+    <View style={styles.page} keyboardShouldPersistTaps='always'>
+      <View style={styles.container} keyboardShouldPersistTaps='always'>
+        <AutoComplete />
         <MapboxGL.MapView
           style={styles.map}
           styleURL={MapboxGL.StyleURL.Street}
@@ -149,8 +147,8 @@ export const Maps = () => {
             animationDuration={0}
           />
           {renderAnnotations()}
-          {route && (
-            <MapboxGL.ShapeSource id='shapeSource' shape={route}>
+          {way && (
+            <MapboxGL.ShapeSource id='shapeSource' shape={way}>
               <MapboxGL.LineLayer
                 id='lineLayer'
                 style={{ lineWidth: 5, lineJoin: 'bevel', lineColor: '#000' }}
