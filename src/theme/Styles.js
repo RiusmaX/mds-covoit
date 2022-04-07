@@ -18,12 +18,12 @@ const tabBarStyle = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    color: colors.primary[50],
+    color: (colors.primary[50]).toString(),
     fontSize: 15
   },
   buttonTextSelected: {
     textAlign: 'center',
-    color: colors.primary[500],
+    color: (colors.primary[500]).toString(),
     fontSize: 16,
     fontWeight: 'bold'
   }
@@ -44,7 +44,7 @@ const homeStyle = StyleSheet.create({
     paddingVertical: 20
   },
   heading: {
-    color: colors.primary[100]
+    color: (colors.primary[100]).toString()
   }
 })
 
