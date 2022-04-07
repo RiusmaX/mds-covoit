@@ -87,6 +87,19 @@ const getUserInfos = async () => {
   }
 }
 
+/**
+ * Add Trip
+ * @param { Object } datas
+ * @returns { Object }
+ */
+const postTrip = async (datas) => {
+  try {
+    const response = await api.post('/trips', datas)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
 // Envoi d'une image
 const uploadPicture = async img => {
   // On récupère le Token de l'utilisateur
@@ -126,6 +139,7 @@ export {
   registerWithRegistrationCredentials,
   getAllTrips,
   getOneTrip,
+  postTrip,
   getUserInfos,
   uploadPicture
 }
