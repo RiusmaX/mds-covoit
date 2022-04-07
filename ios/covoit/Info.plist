@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Cela permet aux utilisateurs de s&apos;identifier entre eux via une photo pour leur covoiturage</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Cela permet aux utilisateurs de s&apos;identifier entre eux via une photo pour leur covoiturage</string>
+	<key>MGLMapboxMetricsEnabledSettingShownInApp</key>
+	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>La localisation va permettre de trouver des offres de covoiturage proche de vous.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -42,8 +50,6 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>La localisation va permettre de trouver des offres de covoiturage proche de vous.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>La localisation va permettre de trouver des offres de covoiturage proche de vous.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>La localisation va permettre de trouver des offres de covoiturage proche de vous.</string>
 	<key>UIAppFonts</key>
 	<array>

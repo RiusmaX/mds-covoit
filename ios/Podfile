@@ -11,7 +11,7 @@ target 'covoit' do
     $RNMBGL.pre_install(installer)
   end
   
-  # pod 'MapboxMaps', '10.3.0'
+
 
   config = use_native_modules!
 
@@ -27,6 +27,7 @@ target 'covoit' do
   end
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   
   # Enables Flipper.
   #
