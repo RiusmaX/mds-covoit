@@ -3,7 +3,7 @@ import { Button, Container, Input, Text } from 'native-base'
 import { getCarInfos } from '../../services/Api_Immat'
 import JSSoup from 'jssoup'
 
-function HeaderProfil () {
+function CarInfos() {
   const [loading, setLoading] = useState(true)
   const [carName, setCarName] = useState('')
   const [immat, setImmat] = useState('')
@@ -30,7 +30,6 @@ function HeaderProfil () {
 
   return (
     <Container
-      h='100%'
       w='100%'
     >
       <Input
@@ -51,4 +50,4 @@ function HeaderProfil () {
   )
 }
 
-export default HeaderProfil
+export default CarInfos

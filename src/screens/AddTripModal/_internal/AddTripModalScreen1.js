@@ -63,14 +63,14 @@ function AddTripModalScreen1 () {
       </VStack>
       <VStack style={{ width: '100%' }} space={4}>
         <Text fontSize={24} fontWeight='bold'>Quand ?</Text>
-          <Button bordered onPress={() => setShowDateTimePicker(!showDateTimePicker)}>
-           <Text color='white'>{tripDatas.departureDate.toLocaleDateString()} à {tripDatas.departureDate.toLocaleTimeString()}</Text>
-         </Button>
+        <Button bordered onPress={() => setShowDateTimePicker(!showDateTimePicker)}>
+          <Text color='white'>{tripDatas.departureDate.toLocaleDateString()} à {tripDatas.departureDate.toLocaleTimeString()}</Text>
+        </Button>
         {showDateTimePicker && (
           <DateTimePicker
             value={tripDatas.departureDate}
-            is24Hour={true}
-            mode="datetime"
+            is24Hour
+            mode='datetime'
             onChange={onChange}
           />
         )}

@@ -19,36 +19,34 @@ function AddTripModal ({ navigation }) {
       </Box>
 
       <Container w='100%' p={4}>
-            <VStack style={{ width: '100%' }} space={8}>
+        <VStack style={{ width: '100%' }} space={8}>
 
-        <activeStep.Component />
-        {!activeStep.hideNext && (
-          <>
-            {activeIndex === steps.length - 1
-              ? (
+          <activeStep.Component />
+          {!activeStep.hideNext && (
+            <>
+              {activeIndex === steps.length - 1
+                ? (
                   <VStack direction='row' space={4} style={{ width: '100%' }}>
                     <Box style={{ width: '100%' }}>
-
                     {activeIndex !== 0 &&
                      <Button onPress={handleBack}>Retour</Button>
                     }
                     <Button onPress={() => addTrip(tripDatas)}>Créer le trajet</Button>
                   </Box>
                   </VStack>
-                )
-              : (
-                  <VStack direction='row' space={4} w='100%' >
+                  )
+                : (
+                  <VStack direction='row' space={4} w='100%'>
                     <Box style={{ width: '100%' }}>
-{activeIndex !== 0 &&
-                     <Button onPress={handleBack}>Retour</Button>
-                    }
-                  <Button onPress={handleNext}>Suivant</Button>
+                      {activeIndex !== 0 &&
+                        <Button onPress={handleBack}>Retour</Button>}
+                      <Button onPress={handleNext}>Suivant</Button>
                     </Box>
-                </VStack>
-                )}
-          </>
-        )}
-          </VStack>
+                  </VStack>
+                  )}
+            </>
+          )}
+        </VStack>
       </Container>
 
       <Center />
