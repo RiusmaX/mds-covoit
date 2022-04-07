@@ -2,10 +2,12 @@ import React from 'react'
 import { logoutUser, useAuth } from '../../contexts/AuthContext'
 import { Box, Button, Center, Container, Flex, Text } from 'native-base'
 import { styles } from '../../theme/Profil'
-import CarInfos from './CarInfos'
+import { useNavigation } from '@react-navigation/native'
+// import AddCarModalScreen1 from '../../screens/AddCarModal/AddCarModalScreens/AddCarModalScreen1'
 
-function UserProfil() {
+function UserProfil () {
   const { dispatch, state } = useAuth()
+  const navigation = useNavigation()
 
   // Déconnexion
   const handleLogout = async () => {
@@ -32,11 +34,11 @@ function UserProfil() {
     >
       <Box>
         <Center>
-          <Flex direction='row'>
+          <Flex flexDirection='row'>
             <Text style={styles.titleText}>{userInfos.firstName}</Text>
             <Text style={styles.titleText}>{userInfos.lastName}</Text>
           </Flex>
-          <Flex direction='row'>
+          <Flex flexDirection='row'>
             <Text style={styles.tags}>{userInfos.school}</Text>
             <Text style={styles.tags}>{userInfos.status}</Text>
             {studentUser}
@@ -50,7 +52,11 @@ function UserProfil() {
         <Text style={styles.titleText}>Véhicules</Text>
       </Box>
       <Button onPress={handleLogout} style={styles.logout} size='md'>Se déconnecter</Button>
-      <CarInfos />
+      <Button
+        onPress={() => navigation.navigate('AddCarModalScreen1')}
+      >
+        Ajouter un véhicule
+      </Button>
     </Container>
   )
 }

@@ -4,7 +4,6 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 
 const AutoComplete = ({ setCoordinate }) => {
   return (
-    <View style={{ width: 500, height: 100, zIndex: 10, marginTop: 10 }}>
       <GooglePlacesAutocomplete
         fetchDetails
         placeholder='Search'
@@ -34,7 +33,6 @@ const AutoComplete = ({ setCoordinate }) => {
           }
         }}
       />
-    </View>
   )
 }
 
