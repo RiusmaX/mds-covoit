@@ -277,6 +277,8 @@ PODS:
     - glog
   - react-native-geolocation-service (5.3.0-beta.4):
     - React
+  - react-native-image-picker (4.7.3):
+    - React-Core
   - react-native-mapbox-gl (8.5.0):
     - Mapbox-iOS-SDK (~> 6.1)
     - React
@@ -293,7 +295,7 @@ PODS:
     - React-Core
   - react-native-pager-view (5.4.11):
     - React-Core
-  - react-native-safe-area-context (3.4.0):
+  - react-native-safe-area-context (3.4.1):
     - React-Core
   - React-perflogger (0.67.2)
   - React-RCTActionSheet (0.67.2):
@@ -366,6 +368,8 @@ PODS:
     - React-Core
   - RNCMaskedView (0.2.6):
     - React-Core
+  - RNDateTimePicker (6.0.1):
+    - React-Core
   - RNGestureHandler (2.2.0):
     - React-Core
   - RNScreens (3.12.0):
@@ -422,6 +426,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - "react-native-mapbox-gl (from `../node_modules/@react-native-mapbox-gl/maps`)"
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -440,6 +445,7 @@ DEPENDENCIES:
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -502,6 +508,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-mapbox-gl:
     :path: "../node_modules/@react-native-mapbox-gl/maps"
   react-native-pager-view:
@@ -538,6 +546,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-masked-view/masked-view"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNScreens:
@@ -583,9 +593,10 @@ SPEC CHECKSUMS:
   React-jsinspector: 595f76eba2176ebd8817a1fffd47b84fbdab9383
   React-logger: 23de8ea0f44fa00ee77e96060273225607fd4d78
   react-native-geolocation-service: c0efb872258ed9240f1003a70fca9e9757e5c785
+  react-native-image-picker: 4e6008ad8c2321622affa2c85432a5ebd02d480c
   react-native-mapbox-gl: 70b58464609b34d1480381bc46e208453264f91e
   react-native-pager-view: 7f00d63688f7df9fad86dfb0154814419cc5eb8d
-  react-native-safe-area-context: f4f7cc09d81ae2d39dfd13e764d718969af07080
+  react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   React-perflogger: 3c9bb7372493e49036f07a82c44c8cf65cbe88db
   React-RCTActionSheet: 052606483045a408693aa7e864410b4a052f541a
   React-RCTAnimation: 08d4cac13222bb1348c687a0158dfd3b577cdb63
@@ -601,6 +612,7 @@ SPEC CHECKSUMS:
   RNBootSplash: 4f34ccf1a0c2573cb4ba918ab7f69d51d610827f
   RNCAsyncStorage: b49b4e38a1548d03b74b30e558a1d18465b94be7
   RNCMaskedView: c298b644a10c0c142055b3ae24d83879ecb13ccd
+  RNDateTimePicker: 9afe1067027ec48370edd97097af382d7718c7b8
   RNGestureHandler: bf572f552ea324acd5b5464b8d30755b2d8c1de6
   RNScreens: 2559f98b0835103cbef3b26ba77fa61d4bb37ae7
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
@@ -608,6 +620,6 @@ SPEC CHECKSUMS:
   Yoga: 9b6696970c3289e8dea34b3eda93f23e61fb8121
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 04299446b3359d8404d505535402f91db399dcf5
+PODFILE CHECKSUM: 2e466c52aec1731a8c0fdd5a7d16b78f2939704d
 
 COCOAPODS: 1.11.2

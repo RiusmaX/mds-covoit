@@ -1,4 +1,8 @@
-import React from 'react'
+import { Box, Button, Center, Modal } from 'native-base'
+import React, { useState } from 'react'
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
+import Icon from 'react-native-vector-icons/Ionicons'
+
 import HeaderProfil from '../components/profile/HeaderProfil'
 import UserProfil from '../components/profile/UserProfil'
 import UserTrips from '../components/profile/UserTrips'

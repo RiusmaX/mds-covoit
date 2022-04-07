@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { useAddTripContext } from '../../contexts/AddTripContext'
 
 function AddTripModal ({ navigation }) {
-  const { steps, activeIndex, handleNext, handleBack } = useAddTripContext()
+  const { steps, activeIndex, handleNext, handleBack, addTrip, tripDatas } = useAddTripContext()
 
   const [activeStep, setActiveStep] = useState(steps[activeIndex])
 
@@ -28,11 +28,11 @@ function AddTripModal ({ navigation }) {
                 ? (
                   <VStack direction='row' space={4} style={{ width: '100%' }}>
                     <Box style={{ width: '100%' }}>
-
-                      {activeIndex !== 0 &&
-                        <Button onPress={handleBack}>Retour</Button>}
-                      <Button onPress={() => { }}>Créer le trajet</Button>
-                    </Box>
+                    {activeIndex !== 0 &&
+                     <Button onPress={handleBack}>Retour</Button>
+                    }
+                    <Button onPress={() => addTrip(tripDatas)}>Créer le trajet</Button>
+                  </Box>
                   </VStack>
                   )
                 : (

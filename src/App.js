@@ -14,12 +14,15 @@ import { AddTripProvider } from './contexts/AddTripContext'
 const WithContext = () => {
   return (
     <GeoProvider onReady={() => RNBootSplash.hide({ fade: true })}>
-      <AddTripProvider>
-        <App />
-      </AddTripProvider>
+      <AuthProvider>
+        <AddTripProvider>
+          <App />
+        </AddTripProvider>
+      </AuthProvider>
     </GeoProvider>
   )
 }
+
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
@@ -57,7 +60,6 @@ const App = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <AuthProvider>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <NavigationContainer
           theme={navigationTheme}
@@ -67,7 +69,6 @@ const App = () => {
             <Navigator />
           </NativeBaseProvider>
         </NavigationContainer>
-      </AuthProvider>
     </SafeAreaView>
   )
 }
