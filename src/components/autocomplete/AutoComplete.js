@@ -1,22 +1,14 @@
 import { View } from 'native-base'
-import React, { useState } from 'react'
+import React from 'react'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 
-const AutoComplete = () => {
-  const [coordinate, setCoordinate] = useState({
-    latitude: '',
-    longitude: ''
-  })
-  // console.log(coordinate)
+const AutoComplete = ({ setCoordinate }) => {
   return (
     <View style={{ width: 500, height: 100, zIndex: 10, marginTop: 10 }}>
       <GooglePlacesAutocomplete
         fetchDetails
         placeholder='Search'
         onPress={(data, details = null) => {
-          // console.log('data', data)
-          // console.log('details', details.geometry.location.lat)
-          // console.log('details', details.geometry.location.lng)
           setCoordinate({
             latitude: details.geometry.location.lat,
             longitude: details.geometry.location.lng

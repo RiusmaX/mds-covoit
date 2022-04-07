@@ -55,7 +55,7 @@ function Trip ({ trip }) {
         </Badge>
         <Box flexDirection='row' alignItems='center' marginBottom={2}>
           {/* L'api strapi ne permet pas encore de récupérer l'avatar */}
-          <Avatar
+          {/* <Avatar
             bg='orange.300'
             _text={{ color: '#fff' }}
             marginRight={2}
@@ -87,7 +87,7 @@ function Trip ({ trip }) {
                 </Avatar>
               )
             })}
-          </Avatar.Group>
+          </Avatar.Group> */}
         </Box>
       </Box>
       <Box flex={1} alignItems='flex-end'>
