@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Button, Container, Input, Text } from 'native-base'
-import { getCarInfos } from '../../services/Api_Immat'
+import { getCarInfos } from '../../services/ApiImmat'
 import JSSoup from 'jssoup'
+import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard'
 
 function CarInfos() {
   const [loading, setLoading] = useState(true)
@@ -28,6 +29,13 @@ function CarInfos() {
     setCarName(carName)
   }
 
+  // Permet de déclencher la fonction onSubmit lorsque l'utilisateur appuie sur le bouton entrer de son clavier
+  // Et le clavier disparait
+  const handleKeyDown = (ev) => {
+    onSubmit()
+    dismissKeyboard()
+  }
+
   return (
     <Container
       w='100%'
@@ -36,6 +44,9 @@ function CarInfos() {
         onChangeText={text => setImmat({ immat: text })}
         value={immat}
         placeholder='AA-123-BB'
+        keyboardType='default'
+        returnKeyType='done'
+        onSubmitEditing={(ev) => handleKeyDown(ev)}
       />
       <Button onPress={() => onSubmit()}>
         Voiture
