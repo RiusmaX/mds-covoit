@@ -23,6 +23,7 @@ const WithContext = () => {
   )
 }
 
+
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
 
