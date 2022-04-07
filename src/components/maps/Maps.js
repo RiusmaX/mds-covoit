@@ -32,8 +32,14 @@ const styles = StyleSheet.create({
 })
 
 export const Maps = () => {
+  const [coordinate, setCoordinate] = useState({
+    latitude: '',
+    longitude: ''
+  })
+
+  // TODO: Définir notre position
   const startingPoint = [-1.542727915806437, 47.21802680279227]
-  const destinationPoint = [-1.6192593177734804, 47.24401906505962]
+  const destinationPoint = [coordinate.longitude, coordinate.latitude]
 
   // state qui contient le chemin
   const [route, setRoute] = useState(null)
@@ -55,7 +61,7 @@ export const Maps = () => {
 
   useEffect(() => {
     fetchRoute()
-  })
+  }, [coordinate])
 
   // const getTrips = async () => {
   //   const trips = await getAllTrips()
@@ -121,7 +127,7 @@ export const Maps = () => {
     <View style={styles.page}>
       <View style={styles.container}>
         <View>
-          <AutoComplete />
+          <AutoComplete setCoordinate={setCoordinate}/>
         </View>
         <MapboxGL.MapView
           style={styles.map}
