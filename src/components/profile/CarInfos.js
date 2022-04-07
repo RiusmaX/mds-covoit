@@ -4,8 +4,8 @@ import { getCarInfos } from '../../services/ApiImmat'
 import JSSoup from 'jssoup'
 import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard'
 
-function HeaderProfil () {
-  const [loading, setLoading] = useState()
+function CarInfos() {
+  const [loading, setLoading] = useState(true)
   const [carName, setCarName] = useState('')
   const [immat, setImmat] = useState('')
 
@@ -38,7 +38,6 @@ function HeaderProfil () {
 
   return (
     <Container
-      h='100%'
       w='100%'
     >
       <Input
@@ -62,4 +61,4 @@ function HeaderProfil () {
   )
 }
 
-export default HeaderProfil
+export default CarInfos

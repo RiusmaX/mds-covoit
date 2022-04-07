@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useGeo, getLocation } from '../../contexts/GeoContext'
 // import { getAllTrips } from '../../services/Api'
-import MapboxGL from '@react-native-mapbox-gl/maps'
+import MapboxGL, { MarkerView } from '@react-native-mapbox-gl/maps'
 import { lineString as makeLineString } from '@turf/helpers'
 import MapboxDirectionsFactory from '@mapbox/mapbox-sdk/services/directions'
+import AutoComplete from '../autocomplete/AutoComplete'
 
 const accessToken =
   'sk.eyJ1Ijoia2VyaGFjNDQiLCJhIjoiY2wwMmp4ODQ1MDQ1bzNkcXBkZmVidjQ1eiJ9.8QTY8SKxsc3D5uNPV5lVNQ'
@@ -31,8 +32,14 @@ const styles = StyleSheet.create({
 })
 
 export const Maps = () => {
+  const [coordinate, setCoordinate] = useState({
+    latitude: '',
+    longitude: ''
+  })
+
+  // TODO: Définir notre position
   const startingPoint = [-1.542727915806437, 47.21802680279227]
-  const destinationPoint = [-1.6192593177734804, 47.24401906505962]
+  const destinationPoint = [coordinate.longitude, coordinate.latitude]
 
   // state qui contient le chemin
   const [route, setRoute] = useState(null)
@@ -54,7 +61,7 @@ export const Maps = () => {
 
   useEffect(() => {
     fetchRoute()
-  })
+  }, [coordinate])
 
   // const getTrips = async () => {
   //   const trips = await getAllTrips()
@@ -119,6 +126,9 @@ export const Maps = () => {
   return (
     <View style={styles.page}>
       <View style={styles.container}>
+        <View>
+          <AutoComplete setCoordinate={setCoordinate}/>
+        </View>
         <MapboxGL.MapView
           style={styles.map}
           styleURL={MapboxGL.StyleURL.Street}
@@ -132,6 +142,13 @@ export const Maps = () => {
           logoEnabled={false}
           attributionEnabled={false}
         >
+          {/* Marker autocomplete maps */}
+          <MarkerView
+            coordinate={[-1.54781, 47.2155166]}
+            id='1'
+            color='red'
+            label='Label 1'
+          />
           <MapboxGL.Camera
             zoomLevel={11}
             centerCoordinate={coordinates}

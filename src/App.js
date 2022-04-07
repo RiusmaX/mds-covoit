@@ -9,14 +9,20 @@ import { getTheme } from './theme/Theme'
 import { GeoProvider, setLocation, useGeo } from './contexts/GeoContext'
 import Geolocation from 'react-native-geolocation-service'
 import RNBootSplash from 'react-native-bootsplash'
+import { AddTripProvider } from './contexts/AddTripContext'
 
 const WithContext = () => {
   return (
     <GeoProvider onReady={() => RNBootSplash.hide({ fade: true })}>
-      <App />
+      <AuthProvider>
+        <AddTripProvider>
+          <App />
+        </AddTripProvider>
+      </AuthProvider>
     </GeoProvider>
   )
 }
+
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
@@ -54,7 +60,6 @@ const App = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <AuthProvider>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <NavigationContainer
           theme={navigationTheme}
@@ -64,7 +69,6 @@ const App = () => {
             <Navigator />
           </NativeBaseProvider>
         </NavigationContainer>
-      </AuthProvider>
     </SafeAreaView>
   )
 }
