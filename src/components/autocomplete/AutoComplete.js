@@ -4,6 +4,10 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 
 const AutoComplete = ({ setCoordinate }) => {
   return (
+    <View
+      style={{ width: 500, marginTop: 10, position: 'absolute', zIndex: 10 }}
+      keyboardShouldPersistTaps='always'
+    >
       <GooglePlacesAutocomplete
         fetchDetails
         placeholder='Search'
@@ -20,19 +24,39 @@ const AutoComplete = ({ setCoordinate }) => {
           components: 'country:fr'
         }}
         styles={{
+          container: {
+            zIndex: 100,
+            elevation: 3
+          },
+          listView: {
+            zIndex: 100,
+            elevation: 3
+          },
+          row: {
+            zIndex: 100,
+            elevation: 3
+          },
           textInputContainer: {
-            backgroundColor: 'grey'
+            backgroundColor: 'grey',
+            color: '#000',
+            width: '100%'
+          },
+          description: {
+            color: '#000',
+            zIndex: 100,
+            elevation: 3
           },
           textInput: {
             height: 38,
-            color: '#5d5d5d',
-            fontSize: 16
+            fontSize: 16,
+            color: '#000'
           },
           predefinedPlacesDescription: {
-            color: '#1faadb'
+            color: '#000'
           }
         }}
       />
+    </View>
   )
 }
 

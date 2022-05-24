@@ -6,6 +6,7 @@ import MapboxGL, { MarkerView } from '@react-native-mapbox-gl/maps'
 import { lineString as makeLineString } from '@turf/helpers'
 import MapboxDirectionsFactory from '@mapbox/mapbox-sdk/services/directions'
 import AutoComplete from '../autocomplete/AutoComplete'
+import _ from 'underscore'
 
 const accessToken =
   'sk.eyJ1Ijoia2VyaGFjNDQiLCJhIjoiY2wwMmp4ODQ1MDQ1bzNkcXBkZmVidjQ1eiJ9.8QTY8SKxsc3D5uNPV5lVNQ'
@@ -100,24 +101,29 @@ export const Maps = () => {
     if (startDestinationPoints && startDestinationPoints.length > 0) {
       return (
         <>
-          {startDestinationPoints.map((point, index) => (
-            <MapboxGL.PointAnnotation
-              key={`${index}-PointAnnotation`}
-              id={`${index}-PointAnnotation`}
-              coordinate={point}
-            >
-              <View
-                style={{
-                  height: 30,
-                  width: 30,
-                  backgroundColor: '#00cccc',
-                  borderRadius: 50,
-                  borderColor: '#fff',
-                  borderWidth: 3
-                }}
-              />
-            </MapboxGL.PointAnnotation>
-          ))}
+          {startDestinationPoints.map(
+            (point, index) =>
+              point &&
+              !_.isEmpty(point[0]) &&
+              !_.isEmpty(point[1]) && (
+                <MapboxGL.PointAnnotation
+                  key={`${index}-PointAnnotation`}
+                  id={`${index}-PointAnnotation`}
+                  coordinate={point}
+                >
+                  <View
+                    style={{
+                      height: 30,
+                      width: 30,
+                      backgroundColor: '#00cccc',
+                      borderRadius: 50,
+                      borderColor: '#fff',
+                      borderWidth: 3
+                    }}
+                  />
+                </MapboxGL.PointAnnotation>
+              )
+          )}
         </>
       )
     }
@@ -126,9 +132,7 @@ export const Maps = () => {
   return (
     <View style={styles.page}>
       <View style={styles.container}>
-        <View>
-          <AutoComplete setCoordinate={setCoordinate}/>
-        </View>
+        <AutoComplete setCoordinate={setCoordinate} />
         <MapboxGL.MapView
           style={styles.map}
           styleURL={MapboxGL.StyleURL.Street}
